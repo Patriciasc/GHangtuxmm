@@ -1,0 +1,43 @@
+#############################################################################
+# File: GHangtuxmm - Makefile.am                                            #
+#                                                                           #
+# Author: Patricia Santana Cruz  <patriciasc@openismus.com>                 #
+#                                                                           #
+# Copyright (C) 2010 Openismus GmbH                                         #
+#                                                                           #
+# Version 0.1                                                               #
+#                                                                           #
+# GHangtuxmm is free software; you can redistribute it and/or modify        #
+# it under the terms of the GNU General Public License as published         #
+# by the Free Software Foundation; either version 3 of the License,         #
+# or (at your option) any later version.                                    #
+#                                                                           #
+# GHangtuxmm is distributed in the hope that it will be useful,             #
+# but WITHOUT ANY WARRANTY; without even the implied warranty of            #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             #
+# GNU General Public License for more details.                              #
+#                                                                           #
+# You should have received a copy of the GNU General Public License         #
+# along with GHangtuxmm. If not, see <http://www.gnu.org/licenses/>.        #
+#                                                                           #
+# This project does not use recursive make, but a single toplevel Makefile  #
+# to build the entire tree (excluding the po subdirectory as gettext comes  #
+# with its own build system).  Read Peter Miller's excellent paper to learn #
+# why recursive make invocations are both slow and error-prone:             #
+# http://www.cse.iitb.ac.in/~soumen/teach/cs699a1999/make.html              #
+#############################################################################
+
+ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
+#AM_CPPFLAGS = $(DEP_CFLAGS) $(GHANGTUX_WARNING_FLAGS)
+main_CPPFLAGS = $(DEP_CFLAGS) -DPROGRAMNAME_LOCALEDIR=\"${PROGRAMNAME_LOCALEDIR}\" $(GHANGTUX_WARNING_FLAGS)
+
+bin_PROGRAMS = main
+main_SOURCES = src/main.cc \
+			   src/ghangtuxmm.h \
+			   src/ghangtuxmm.cc \
+			   src/ghangtuxmm_keyboard.h \
+			   src/ghangtuxmm_keyboard.cc 
+
+main_LDADD = $(DEP_LIBS)
+
+dist_noinst_SCRIPTS = autogen.sh

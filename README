@@ -1,0 +1,90 @@
+                                    GHangtux
+                                   version 1.0
+
+                          A version of the Hangman game
+                        Copyright (C) 2010 Openismus GmbH
+
+                               Patricia Santana Cruz
+                             patriciasc@openismus.com
+ 
+                                    Juli 2010
+
+     ----------------------------------------------------------------------
+
+   +-------------------------------------------+
+   |             Table of Contents             |
+   |-------------------------------------------|
+   |  * About                                  |
+   |    + What Is 'GHangtux?'                  |
+   |    + License                              |
+   |                                           |
+   |  * Using GHangtux                         |
+   |    + How To Play 'GHangtux?'              | 
+   |    + Installation                         |
+   +-------------------------------------------+
+
+     ----------------------------------------------------------------------
+
+                                     About
+
+What Is 'GHangtux?'
+
+       GHangtux is a free program variation of the popular Hangman game.
+       It has been designed for people of all ages and has a simple, 
+       easy-to-use interface.
+
+       It provides a keyboard and a sentence/word to guess, whose theme 
+       the player is able to select. Current themes are: films, objects 
+       and persons.
+
+       A graphic sequence of tux images will be displayed during the game,
+       indicating the player how many attempts he/she has left.
+
+
+License:
+
+       GHangtux is an Open Source project, Free Software released under the
+       GNU General Public License (GPL). It is free, and the 'source code'
+       behind the program is available. (This allows others to add features,
+       fix bugs, and use parts of the program in their own GPL'd software.)
+
+       See COPYING.txt for the full text of the GPL license.
+ 
+
+                                Using GHangtux
+
+How To Play 'GHangtux?'
+
+       GHangman is a game for one player. A sentence/word will be displayed 
+       and the player can try to guess it by suggesting letters.
+
+       The sentence/word to guess is represented by a row of dashes, giving 
+       the number of letters. If the player suggests a letter which occurs 
+       in the word, it will be displayed in all its correct positions. 
+       If the suggested letter does not occur in the word, a new image of
+       Tux will be shown. The game is over when:
+
+          * The player completes the sentence/word.
+          * All Tux images has been shown. 
+
+
+
+Installation:
+
+      For a custom prefix the $XDG_DATA_DIRS variable needs to be set up. This 
+      is an issue that I would like to change for the next versions.
+
+      * Usage example:
+      
+      desirable prefix for installation: /home/me/.local
+      
+      Installation process BEFORE:
+      [me@me GHangTux]$ ./autogen.sh --prefix=/home/me/.local
+      [me@me GHangTux]$ make
+      [me@me GHangTux]$ make install 
+
+      Installation process NOW:
+      [me@me GHangTux]$ ./autogen.sh --prefix=/home/me/.local
+      [me@me GHangTux]$ make
+      [me@me GHangTux]$ make install 
+      [me@me GHangTux]$ XDG_DATA_DIRS=/home/me/.local/share /home/me/.local/bin/ghangtux

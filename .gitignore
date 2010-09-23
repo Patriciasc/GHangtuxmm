@@ -1,0 +1,12 @@
+build-aux
+autom4te.cache
+aclocal.m4
+config.*
+configure
+*tar.gz
+main
+Makefile
+Makefile.in
+src/config*
+src/*.o
+src/.*
