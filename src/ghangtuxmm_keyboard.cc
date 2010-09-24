@@ -28,18 +28,60 @@
 #include <gtkmm.h>
 #include "ghangtuxmm_keyboard.h"
 
+#define N_ROWS 2
+#define N_COLS 13
+
 GHangtuxmmKeyboard::GHangtuxmmKeyboard()
 {
+    guint i;
+    guint j;
+    float align = 0.50;
+    int ascii_int = 65; /* ascci A=65 */
+    Glib::ustring ascii_char; 
+
+    resize(N_ROWS, N_COLS);
+    set_homogeneous(true);
+
+    for(i=0; i<N_ROWS; i++)
+    {
+        for(j=0; j<N_COLS; j++)
+        {
+            ascii_char = Glib::ustring::compose("%1%%",ascii_int); 
+            ascii_int++;
+
+            button.set_label(ascii_char);
+            button.set_use_underline(TRUE);
+            button.set_alignment(align, align);
+            //button.signal_clicked()?
+
+            attach(button, j, j+1, i, i+1, Gtk::FILL, Gtk::FILL, 0, 0);
+            button.show();
+        }
+     }
 }
 
+/*
+Glib::ustring GHangtuxmmKeyboard::IntToUString(int iVal)
+{
+    std::ostringstream ssIn;
+    ssIn << iVal;
+    Glib::ustring strOut = ssIn.str();
+    
+    return strOut;
+}
+*/
 GHangtuxmmKeyboard::~GHangtuxmmKeyboard()
 {
 }
 
-void GHangtuxmmKeyboard::set_sensitive (gboolean sensitive)
+static void set_key_insensitive()
 {
 }
 
-void GHangtuxmmKeyboard::on_key_clicked (const gchar key_name)
+void GHangtuxmmKeyboard::set_sensitive(bool sensitive)
+{
+}
+
+void GHangtuxmmKeyboard::on_key_clicked(const Glib::ustring key_name)
 {
 }

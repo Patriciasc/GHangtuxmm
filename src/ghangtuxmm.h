@@ -30,6 +30,7 @@
 
 #include <gtkmm.h>
 #include <glibmm.h>
+#include "ghangtuxmm_keyboard.h"
 
 /* Game widgets and control elements. */
 class GHangtuxApp : public Gtk::Window
@@ -39,17 +40,7 @@ public:
     ~GHangtuxApp();
 
 private:
-    Glib::RefPtr<Gtk::Builder> builder;  /* App Builder */
-    Glib::ustring sentence;              /* Games's sentence */
-    Glib::ustring display_sentence;      /* Displayed sentence */
-    const gchar *valid_chars;            /* Player asserted characters */
-    Gtk::Label display_label;            /* Label for display_sentence */
-    Gtk::Label title_label;              /* Title label */
-    Gtk::Image image;                    /* Displayed image */
-    gint n_img;                          /* Current image number */
-    //keyboard;      
-    gint theme_id;                       /* Current theme's identifier */
-    Gdk::Pixbuf *logo;                   /* Application's logo */
+    Gtk::Image *image;                   /* Displayed image */
 };
 
 #endif /* GHANGTUXMM_H__ */

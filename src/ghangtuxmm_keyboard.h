@@ -36,12 +36,16 @@ public:
     GHangtuxmmKeyboard();
     ~GHangtuxmmKeyboard();
 
-    void set_sensitive (gboolean sensitive);
+    void set_sensitive(bool sensitive);
 
 private:
-    
-    void on_key_clicked (const gchar key_name);
 
+    void on_key_clicked(const Glib::ustring key_name);
+    Glib::ustring IntToUString(int iVal);
+
+    //All buttons might not be here,
+    //since I need 26 in total. 
+    //The structure might change
     Gtk::Button button;
 };
 
