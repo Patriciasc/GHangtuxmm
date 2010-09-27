@@ -40,7 +40,6 @@ public:
     ~GHangtuxApp();
 
 private:
-    Gtk::Image* m_image;
 };
 
 #endif /* GHANGTUXMM_H__ */

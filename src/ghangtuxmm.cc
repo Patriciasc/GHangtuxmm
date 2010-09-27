@@ -31,7 +31,6 @@
 #include <iostream>
 
 GHangtuxApp::GHangtuxApp()
-:m_image(0)
 {
     //Load the Glade file and instiate its widgets
     Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create(); 
@@ -48,7 +47,11 @@ GHangtuxApp::GHangtuxApp()
         std::cerr << "BuilderError: " << ex.what() << std::endl;
     }
 
-    //Derive window from Glade file here
+    //Get the GtkBuilder-instantiated main window
+    //Still need to make this window the one that is shown
+    //when executing the programm
+    DerivedWindow* pWindow = 0;
+    refBuilder->get_widget_derived("main_window", pWindow);
 }
 
 GHangtuxApp::~GHangtuxApp()
