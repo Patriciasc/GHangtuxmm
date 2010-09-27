@@ -34,7 +34,7 @@ main (int argc,
 {
    Gtk::Main kit(argc, argv);
    GHangtuxApp GHapp;
-   Gtk::Main::run (GHapp);
+   Gtk::Main::run();
 
    return 0;
 } 

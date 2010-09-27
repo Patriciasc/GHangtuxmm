@@ -33,7 +33,7 @@
 #include "ghangtuxmm_keyboard.h"
 
 /* Game widgets and control elements. */
-class GHangtuxApp : public Gtk::Window
+class GHangtuxApp
 {
 public:
     GHangtuxApp();

@@ -10,7 +10,6 @@ DerivedWindow::DerivedWindow(BaseObjectType* cobject,
     if(m_pImage)
     {
         m_pImage->set("Tux0.png");
-        m_pImage->show();
     }
 }
 

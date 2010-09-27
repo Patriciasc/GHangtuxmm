@@ -36,7 +36,7 @@ GHangtuxApp::GHangtuxApp()
     Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create(); 
     try
     {
-        refBuilder->add_from_file("ghangtux.glade");
+        refBuilder->add_from_file("ghangtuxmm.glade");
     }
     catch(const Glib::FileError& ex)
     {
@@ -52,6 +52,7 @@ GHangtuxApp::GHangtuxApp()
     //when executing the programm
     DerivedWindow* pWindow = 0;
     refBuilder->get_widget_derived("main_window", pWindow);
+    pWindow->show();
 }
 
 GHangtuxApp::~GHangtuxApp()
