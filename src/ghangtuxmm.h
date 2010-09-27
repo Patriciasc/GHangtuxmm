@@ -40,6 +40,11 @@ public:
     ~GHangtuxApp();
 
 private:
+    //Action handlers
+    void on_action_game_new();
+    void on_action_game_solve();
+    void on_action_game_quit();
+    void on_action_about_dialog();
 };
 
 #endif /* GHANGTUXMM_H__ */
