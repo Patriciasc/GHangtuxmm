@@ -9,7 +9,7 @@ DerivedWindow::DerivedWindow(BaseObjectType* cobject,
     m_refGlade->get_widget("hangtux_area", m_pImage);
     if(m_pImage)
     {
-        m_pImage->set("Tux0.png");
+        m_pImage->set("images/Tux0.png");
     }
 }
 

@@ -27,17 +27,36 @@
 # http://www.cse.iitb.ac.in/~soumen/teach/cs699a1999/make.html              #
 #############################################################################
 
+# ===========================
+# -- CONFIGURATION OPTIONS --
+# ===========================
+#
 ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
-#AM_CPPFLAGS = $(DEP_CFLAGS) $(GHANGTUX_WARNING_FLAGS)
-main_CPPFLAGS = $(DEP_CFLAGS) -DPROGRAMNAME_LOCALEDIR=\"${PROGRAMNAME_LOCALEDIR}\" $(GHANGTUX_WARNING_FLAGS)
+
+# =================
+# -- TARGET LIST --
+# =================
 
 bin_PROGRAMS = main
 main_SOURCES = src/main.cc \
 			   src/ghangtuxmm.h \
 			   src/ghangtuxmm.cc \
+			   src/ghangtuxmm_derived_window.h \
+			   src/ghangtuxmm_derived_window.cc \
 			   src/ghangtuxmm_keyboard.h \
 			   src/ghangtuxmm_keyboard.cc 
 
+main_CPPFLAGS = $(DEP_CFLAGS) -DPROGRAMNAME_LOCALEDIR=\"${PROGRAMNAME_LOCALEDIR}\" $(GHANGTUX_WARNING_FLAGS)
 main_LDADD = $(DEP_LIBS)
+
+# ================
+# -- FILE LISTS --
+# ================
+
+imagesdir = $(pkgdatadir)/images
+dist_images_DATA = data/images/Tux0.png
+
+uidir = $(pkgdatadir)/ui
+dist_ui_DATA = data/ui/ghangtuxmm.glade
 
 dist_noinst_SCRIPTS = autogen.sh

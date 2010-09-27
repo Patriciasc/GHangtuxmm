@@ -36,7 +36,7 @@ GHangtuxApp::GHangtuxApp()
     Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create(); 
     try
     {
-        refBuilder->add_from_file("ghangtuxmm.glade");
+        refBuilder->add_from_file("ui/ghangtuxmm.glade");
     }
     catch(const Glib::FileError& ex)
     {

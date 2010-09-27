@@ -10,3 +10,4 @@ Makefile.in
 src/config*
 src/*.o
 src/.*
+src/stamp*
