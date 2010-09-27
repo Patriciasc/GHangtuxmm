@@ -33,7 +33,6 @@ main (int argc,
       char *argv[])
 {
    Gtk::Main kit(argc, argv);
-  
    GHangtuxApp GHapp;
    Gtk::Main::run (GHapp);
 

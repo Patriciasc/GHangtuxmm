@@ -2,7 +2,7 @@
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
-  <object class="GtkWindow" id="main_win">
+  <object class="GtkWindow" id="main_window">
     <property name="title" translatable="yes">GHangtux</property>
     <property name="window_position">center</property>
     <signal name="destroy" handler="main_win_destroy"/>

@@ -31,10 +31,11 @@
 #define N_ROWS 2
 #define N_COLS 13
 
+// This function is still not working since
+// the structure of the .h file will be
+// changed in the near future
 GHangtuxmmKeyboard::GHangtuxmmKeyboard()
 {
-    guint i;
-    guint j;
     float align = 0.50;
     int ascii_int = 65; /* ascci A=65 */
     Glib::ustring ascii_char; 
@@ -42,34 +43,24 @@ GHangtuxmmKeyboard::GHangtuxmmKeyboard()
     resize(N_ROWS, N_COLS);
     set_homogeneous(true);
 
-    for(i=0; i<N_ROWS; i++)
+    for(int i=0; i<N_ROWS; ++i)
     {
-        for(j=0; j<N_COLS; j++)
+        for(int j=0; j<N_COLS; ++j)
         {
             ascii_char = Glib::ustring::compose("%1%%",ascii_int); 
             ascii_int++;
 
-            button.set_label(ascii_char);
-            button.set_use_underline(TRUE);
-            button.set_alignment(align, align);
-            //button.signal_clicked()?
+            m_button.set_label(ascii_char);
+            m_button.set_use_underline();
+            m_button.set_alignment(align, align);
+            //m_button.signal_clicked()?
 
-            attach(button, j, j+1, i, i+1, Gtk::FILL, Gtk::FILL, 0, 0);
-            button.show();
+            attach(m_button, j, j+1, i, i+1);
+            m_button.show();
         }
      }
 }
 
-/*
-Glib::ustring GHangtuxmmKeyboard::IntToUString(int iVal)
-{
-    std::ostringstream ssIn;
-    ssIn << iVal;
-    Glib::ustring strOut = ssIn.str();
-    
-    return strOut;
-}
-*/
 GHangtuxmmKeyboard::~GHangtuxmmKeyboard()
 {
 }

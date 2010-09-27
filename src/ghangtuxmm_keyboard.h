@@ -46,7 +46,7 @@ private:
     //All buttons might not be here,
     //since I need 26 in total. 
     //The structure might change
-    Gtk::Button button;
+    Gtk::Button m_button;
 };
 
 #endif /* GHANGTUXMM_KEYBOARD_H__ */

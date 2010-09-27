@@ -26,18 +26,18 @@
  */
 
 #include "ghangtuxmm.h"
+#include "ghangtuxmm_derived_window.h"
 #include <gtkmm.h>
 #include <iostream>
 
 GHangtuxApp::GHangtuxApp()
-:image(0)
+:m_image(0)
 {
-    //Builder
-    Glib::RefPtr<Gtk::Builder> builder = Gtk::Builder::create(); 
-
+    //Load the Glade file and instiate its widgets
+    Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create(); 
     try
     {
-        builder->add_from_file("ghangtux.glade");
+        refBuilder->add_from_file("ghangtux.glade");
     }
     catch(const Glib::FileError& ex)
     {
@@ -48,13 +48,7 @@ GHangtuxApp::GHangtuxApp()
         std::cerr << "BuilderError: " << ex.what() << std::endl;
     }
 
-    //FIX THIS: I am using the window I am inheriting from
-    //and not the glade file window!
-
-    //Hangtux image area
-    builder->get_widget("hangtux_area", image);
-    image->set("Tux0.png");
-    image->show();
+    //Derive window from Glade file here
 }
 
 GHangtuxApp::~GHangtuxApp()
