@@ -37,8 +37,7 @@
 GHangtuxmmKeyboard::GHangtuxmmKeyboard()
 {
     float align = 0.50;
-    int ascii_int = 65; /* ascci A=65 */
-    Glib::ustring ascii_char; 
+    char ascii = 'A';
 
     resize(N_ROWS, N_COLS);
     set_homogeneous(true);
@@ -47,16 +46,13 @@ GHangtuxmmKeyboard::GHangtuxmmKeyboard()
     {
         for(int j=0; j<N_COLS; ++j)
         {
-            ascii_char = Glib::ustring::compose("%1%%",ascii_int); 
-            ascii_int++;
-
-            m_button.set_label(ascii_char);
-            m_button.set_use_underline();
-            m_button.set_alignment(align, align);
-            //m_button.signal_clicked()?
-
-            attach(m_button, j, j+1, i, i+1);
-            m_button.show();
+            Gtk::Button *pButton = new Gtk::Button(&ascii);
+            //FIX: I am doing this wrong!!Not showing the letters
+            ascii++;
+            pButton->set_use_underline();
+            pButton->set_alignment(align, align);
+            attach(*pButton, j, j+1, i, i+1);
+            pButton->show();
         }
      }
 }

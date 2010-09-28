@@ -29,8 +29,6 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
     
     //Create actions for menus and toolbars.
     Glib::RefPtr<Gtk::ActionGroup> refActionGroup = Gtk::ActionGroup::create();
-    Gtk::RadioAction::Group group_theme;
-    Glib::RefPtr<Gtk::RadioAction> m_refFilms, m_refPersons, m_refObjects;
 
     //Game menu.
     refActionGroup->add( Gtk::Action::create("MenuGame", "_Game"));
@@ -44,6 +42,9 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
     //Settings menu.
     refActionGroup->add( Gtk::Action::create("MenuSettings", "_Settings"));
     refActionGroup->add( Gtk::Action::create("MenuSettingsThemes", "_Themes"));
+
+    Gtk::RadioAction::Group group_theme;
+    Glib::RefPtr<Gtk::RadioAction> m_refFilms, m_refPersons, m_refObjects;
     m_refFilms = Gtk::RadioAction::create(group_theme, "MenuThemesFilms", "_Films");
     refActionGroup->add(m_refFilms,
       sigc::mem_fun(*this, &GHangtuxmmApp::on_action_game_new));
@@ -103,23 +104,30 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
         std::cerr << "Building menu or toolbar failed: " << ex.what();
     }
 
-    // Get menubar and toolbar widgets
-    Gtk::VBox *VBoxMenu;
-    m_refBuilder->get_widget("vbox", VBoxMenu);
+    // Get menubar and toolbar widgets.
+    Gtk::VBox* pVBoxMenu;
+    m_refBuilder->get_widget("vbox", pVBoxMenu);
 
     Gtk::Widget* pMenubar = refUIManager->get_widget("/Menubar");
     if(pMenubar)
     {
-        VBoxMenu->pack_start(*pMenubar, Gtk::PACK_SHRINK);
-        VBoxMenu->reorder_child(*pMenubar, 0);
+        pVBoxMenu->pack_start(*pMenubar, Gtk::PACK_SHRINK);
+        pVBoxMenu->reorder_child(*pMenubar, 0);
     }
 
     Gtk::Widget* pToolbar = refUIManager->get_widget("/Toolbar");
     if(pToolbar)
     {
-        VBoxMenu->pack_start(*pToolbar, Gtk::PACK_SHRINK);
-        VBoxMenu->reorder_child(*pToolbar, 1);
+        pVBoxMenu->pack_start(*pToolbar, Gtk::PACK_SHRINK);
+        pVBoxMenu->reorder_child(*pToolbar, 1);
     }
+
+    // Set keyboard. FIX: Still not working.
+    Gtk::VBox* pVBoxKeyboard;
+    m_refBuilder->get_widget("vbox2", pVBoxKeyboard);
+
+    pVBoxKeyboard->pack_start(m_Keyboard, Gtk::PACK_SHRINK);
+    pVBoxKeyboard->reorder_child(m_Keyboard, 3);
 }
 
 //Destructor
@@ -138,6 +146,7 @@ void GHangtuxmmApp::on_action_game_solve()
 
 void GHangtuxmmApp::on_action_game_quit()
 {
+    hide();
 }
 
 void GHangtuxmmApp::on_action_about_dialog()

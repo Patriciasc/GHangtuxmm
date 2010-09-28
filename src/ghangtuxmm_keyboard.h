@@ -39,14 +39,7 @@ public:
     void set_sensitive(bool sensitive);
 
 private:
-
     void on_key_clicked(const Glib::ustring key_name);
-    Glib::ustring IntToUString(int iVal);
-
-    //All buttons might not be here,
-    //since I need 26 in total. 
-    //The structure might change
-    Gtk::Button m_button;
 };
 
 #endif /* GHANGTUXMM_KEYBOARD_H__ */

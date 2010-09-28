@@ -2,6 +2,7 @@
 #define GHANGTUXMM_DERIVED_WINDOW_H
 
 #include <gtkmm.h>
+#include "ghangtuxmm_keyboard.h"
 
 class GHangtuxmmApp : public Gtk::Window
 {
@@ -20,6 +21,7 @@ private:
     Gtk::Image* m_pImage;
     Gtk::Label* m_pSentenceLabel;
     Gtk::Label* m_pTitleLabel;
+    GHangtuxmmKeyboard m_Keyboard;
     Gtk::Statusbar* m_pStatusbar;
 };
 

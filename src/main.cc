@@ -40,7 +40,7 @@ main (int argc,
     Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create(); 
     try
     {
-        refBuilder->add_from_file("ui/ghangtuxmm.glade");
+        refBuilder->add_from_file("../data/ui/ghangtuxmm.glade");
     }
     catch(const Glib::FileError& ex)
     {
