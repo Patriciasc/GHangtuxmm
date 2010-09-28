@@ -25,16 +25,37 @@
  * ########################################################################
 */
 
-#include "ghangtuxmm.h"
+#include "ghangtuxmm_app.h"
 #include <gtkmm/main.h>
+#include <iostream>
 
 int
 main (int argc,
       char *argv[])
 {
-   Gtk::Main kit(argc, argv);
-   GHangtuxApp GHapp;
-   Gtk::Main::run();
+    Gtk::Main kit(argc, argv);
+
+    //FIX: I want to encapsulate all this in the constructor
+    //Load the Glade file and instiate its widgets.
+    Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create(); 
+    try
+    {
+        refBuilder->add_from_file("ui/ghangtuxmm.glade");
+    }
+    catch(const Glib::FileError& ex)
+    {
+        std::cerr << "FileError: " << ex.what() << std::endl;
+    }
+    catch(const Gtk::BuilderError& ex)
+    {
+        std::cerr << "BuilderError: " << ex.what() << std::endl;
+    }
+
+    GHangtuxmmApp *GHapp = 0;
+    refBuilder->get_widget_derived("main_window", GHapp);
+    GHapp->show();
+
+    Gtk::Main::run(*GHapp);
 
    return 0;
-} 
+}

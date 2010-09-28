@@ -39,10 +39,8 @@ ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 
 bin_PROGRAMS = main
 main_SOURCES = src/main.cc \
-			   src/ghangtuxmm.h \
-			   src/ghangtuxmm.cc \
-			   src/ghangtuxmm_derived_window.h \
-			   src/ghangtuxmm_derived_window.cc \
+			   src/ghangtuxmm_app.h \
+			   src/ghangtuxmm_app.cc \
 			   src/ghangtuxmm_keyboard.h \
 			   src/ghangtuxmm_keyboard.cc 
 
