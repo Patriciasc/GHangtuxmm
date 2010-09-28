@@ -1,72 +1,125 @@
 #include "ghangtuxmm_app.h"
-//#include <iostream>
+#include <iostream>
 
 //Constructor
-//FIX: Divide this code in multiple functions
-GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder)
+//FIX!!: Divide this code in multiple functions
+GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refBuilder)
 : Gtk::Window(cobject),
-  m_pBuilder(builder),
+  m_refBuilder(refBuilder),
   m_pImage(0),
   m_pSentenceLabel(0),
   m_pTitleLabel(0),
   m_pStatusbar(0)
 {
     //Get the Glade-instantiated Image
-    m_pBuilder->get_widget("hangtux_area", m_pImage);
+    m_refBuilder->get_widget("hangtux_area", m_pImage);
     if(m_pImage)
     {
         m_pImage->set("images/Tux0.png");
     }
 
-    //this->show();
-
     //Get the Glade-instantiated label for the game's sentence
-    m_pBuilder->get_widget("for_sentence_label", m_pSentenceLabel);
+    m_refBuilder->get_widget("for_sentence_label", m_pSentenceLabel);
 
     //Get the Glade-instantiated label for the game's title
-    m_pBuilder->get_widget("for_title_label", m_pTitleLabel);
+    m_refBuilder->get_widget("for_title_label", m_pTitleLabel);
 
     //Get the Glade-instantiated status bar
-    m_pBuilder->get_widget("statusbar", m_pStatusbar);
+    m_refBuilder->get_widget("statusbar", m_pStatusbar);
     
     //Create actions for menus and toolbars.
-    Glib::RefPtr<Gtk::ActionGroup> m_refActionGroup = Gtk::ActionGroup::create();
+    Glib::RefPtr<Gtk::ActionGroup> refActionGroup = Gtk::ActionGroup::create();
     Gtk::RadioAction::Group group_theme;
     Glib::RefPtr<Gtk::RadioAction> m_refFilms, m_refPersons, m_refObjects;
 
     //Game menu.
-    m_refActionGroup->add( Gtk::Action::create("MenuGame", "_Game"));
-    m_refActionGroup->add( Gtk::Action::create("MenuGameNew", "_New"),
+    refActionGroup->add( Gtk::Action::create("MenuGame", "_Game"));
+    refActionGroup->add( Gtk::Action::create("MenuGameNew",Gtk::Stock::NEW, "_New"),
       sigc::mem_fun(*this, &GHangtuxmmApp::on_action_game_new));
-    m_refActionGroup->add( Gtk::Action::create("MenuGameSolve", "_Solve"),
+    refActionGroup->add( Gtk::Action::create("MenuGameSolve", Gtk::Stock::APPLY, "_Solve"),
       sigc::mem_fun(*this, &GHangtuxmmApp::on_action_game_solve));
-    m_refActionGroup->add( Gtk::Action::create("MenuGameQuit", "_Quit"),
+    refActionGroup->add( Gtk::Action::create("MenuGameQuit", Gtk::Stock::QUIT, "_Quit"),
       sigc::mem_fun(*this, &GHangtuxmmApp::on_action_game_quit));
 
     //Settings menu.
-    m_refActionGroup->add( Gtk::Action::create("MenuSettings", "_Settings"));
-    m_refActionGroup->add( Gtk::Action::create("MenuSettingsThemes", "_Themes"));
-    m_refFilms = Gtk::RadioAction::create(group_theme, "MenuThemesFilm", "_Films");
-    m_refActionGroup->add(m_refFilms,
+    refActionGroup->add( Gtk::Action::create("MenuSettings", "_Settings"));
+    refActionGroup->add( Gtk::Action::create("MenuSettingsThemes", "_Themes"));
+    m_refFilms = Gtk::RadioAction::create(group_theme, "MenuThemesFilms", "_Films");
+    refActionGroup->add(m_refFilms,
       sigc::mem_fun(*this, &GHangtuxmmApp::on_action_game_new));
     m_refPersons = Gtk::RadioAction::create(group_theme, "MenuThemesPersons", "_Persons");
-    m_refActionGroup->add(m_refPersons,
+    refActionGroup->add(m_refPersons,
       sigc::mem_fun(*this, &GHangtuxmmApp::on_action_game_new));
     m_refObjects = Gtk::RadioAction::create(group_theme, "MenuThemesObjects", "_Objects");
-    m_refActionGroup->add(m_refObjects,
+    refActionGroup->add(m_refObjects,
       sigc::mem_fun(*this, &GHangtuxmmApp::on_action_game_new));
 
     //Help menu.
-    m_refActionGroup->add( Gtk::Action::create("MenuHelp", "_About"),
+    refActionGroup->add( Gtk::Action::create("MenuHelp", "_Help"));
+    refActionGroup->add( Gtk::Action::create("MenuHelpAbout", "_About"),
       sigc::mem_fun(*this, &GHangtuxmmApp::on_action_about_dialog));
 
-    //Create UIManager, add actions.
-    Glib::RefPtr<Gtk::UIManager> m_refUIManager = Gtk::UIManager::create();
-    m_refUIManager->insert_action_group(m_refActionGroup);
+    //Create UIManager and add action group.
+    Glib::RefPtr<Gtk::UIManager> refUIManager = Gtk::UIManager::create();
+    refUIManager->insert_action_group(refActionGroup);
 
-    //pWindow->add_accel_group(m_refUIManager->get_accel_group());
+    //Make window respond to shortcuts.
+    add_accel_group(refUIManager->get_accel_group());
 
-    //TODO: Layout menubar and toolbar here
+    //UIManager layout.
+    Glib::ustring ui_menu_toolbar=
+        "<ui>"
+        "   <menubar name='Menubar'>"
+        "       <menu action='MenuGame'>"
+        "           <menuitem action='MenuGameNew'/>"
+        "           <menuitem action='MenuGameSolve'/>"
+        "           <separator/>"
+        "           <menuitem action='MenuGameQuit'/>"
+        "       </menu>"
+        "       <menu action='MenuSettings'>"
+        "           <menu action='MenuSettingsThemes'>"
+        "               <menuitem action='MenuThemesFilms'/>"
+        "               <menuitem action='MenuThemesPersons'/>"
+        "               <menuitem action='MenuThemesObjects'/>"
+        "           </menu>"
+        "       </menu>"
+        "       <menu action='MenuHelp'>"
+        "           <menuitem action='MenuHelpAbout'/>"
+        "       </menu>"
+        "   </menubar>"
+        "   <toolbar name='Toolbar'>"
+        "       <toolitem action='MenuGameNew'/>"
+        "       <toolitem action='MenuGameSolve'/>"
+        "       <toolitem action='MenuGameQuit'/>"
+        "   </toolbar>"
+        "</ui>";
+
+    try
+    {
+        refUIManager->add_ui_from_string(ui_menu_toolbar);
+    }
+    catch(const Glib::Error& ex)
+    {
+        std::cerr << "Building menu or toolbar failed: " << ex.what();
+    }
+
+    // Get menubar and toolbar widgets
+    Gtk::VBox *VBoxMenu;
+    m_refBuilder->get_widget("vbox", VBoxMenu);
+
+    Gtk::Widget* pMenubar = refUIManager->get_widget("/Menubar");
+    if(pMenubar)
+    {
+        VBoxMenu->pack_start(*pMenubar, Gtk::PACK_SHRINK);
+        VBoxMenu->reorder_child(*pMenubar, 0);
+    }
+
+    Gtk::Widget* pToolbar = refUIManager->get_widget("/Toolbar");
+    if(pToolbar)
+    {
+        VBoxMenu->pack_start(*pToolbar, Gtk::PACK_SHRINK);
+        VBoxMenu->reorder_child(*pToolbar, 1);
+    }
 }
 
 //Destructor

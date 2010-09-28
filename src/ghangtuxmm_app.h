@@ -6,7 +6,7 @@
 class GHangtuxmmApp : public Gtk::Window
 {
 public:
-    GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder);
+    GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refBuilder);
     ~GHangtuxmmApp();
 
 private:
@@ -16,7 +16,7 @@ private:
     void on_action_game_quit();
     void on_action_about_dialog();
 
-    Glib::RefPtr<Gtk::Builder> m_pBuilder;
+    Glib::RefPtr<Gtk::Builder> m_refBuilder;
     Gtk::Image* m_pImage;
     Gtk::Label* m_pSentenceLabel;
     Gtk::Label* m_pTitleLabel;
