@@ -45,7 +45,8 @@ GHangtuxmmKeyboard::GHangtuxmmKeyboard()
     {
         for(int j=0; j<N_COLS; ++j)
         {
-            Gtk::Button *pButton = new Gtk::Button(Glib::ustring(sizeof(ascii), ascii));
+            Gtk::Button *pButton = manage(new Gtk::Button(Glib::ustring(sizeof(ascii), ascii)));
+            add(*pButton);
             ascii++;
             pButton->set_use_underline();
             pButton->set_alignment(align, align);
