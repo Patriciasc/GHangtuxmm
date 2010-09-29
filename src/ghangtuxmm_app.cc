@@ -1,7 +1,7 @@
 #include "ghangtuxmm_app.h"
 #include <iostream>
 
-//Constructor
+//Constructor.
 //FIX!!: Divide this code in multiple functions
 GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refBuilder)
 : Gtk::Window(cobject),
@@ -11,20 +11,15 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
   m_pTitleLabel(0),
   m_pStatusbar(0)
 {
-    //Get the Glade-instantiated Image
+    //Get the Glade-instantiated different widgets.
     m_refBuilder->get_widget("hangtux_area", m_pImage);
     if(m_pImage)
     {
         m_pImage->set("images/Tux0.png");
     }
 
-    //Get the Glade-instantiated label for the game's sentence
     m_refBuilder->get_widget("for_sentence_label", m_pSentenceLabel);
-
-    //Get the Glade-instantiated label for the game's title
     m_refBuilder->get_widget("for_title_label", m_pTitleLabel);
-
-    //Get the Glade-instantiated status bar
     m_refBuilder->get_widget("statusbar", m_pStatusbar);
     
     //Create actions for menus and toolbars.
@@ -122,7 +117,7 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
         pVBoxMenu->reorder_child(*pToolbar, 1);
     }
 
-    // Set keyboard. FIX: Still not working.
+    // Set keyboard.
     Gtk::VBox* pVBoxKeyboard;
     m_refBuilder->get_widget("vbox2", pVBoxKeyboard);
 
@@ -130,12 +125,12 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
     pVBoxKeyboard->reorder_child(m_Keyboard, 3);
 }
 
-//Destructor
+//Destructor.
 GHangtuxmmApp::~GHangtuxmmApp()
 {
 }
 
-//Action handlers
+//Action handlers.
 void GHangtuxmmApp::on_action_game_new()
 {
 }

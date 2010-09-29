@@ -26,14 +26,13 @@
  */
 
 #include <gtkmm.h>
+#include <glibmm.h>
 #include "ghangtuxmm_keyboard.h"
 
 #define N_ROWS 2
 #define N_COLS 13
 
-// This function is still not working since
-// the structure of the .h file will be
-// changed in the near future
+//Constructor.
 GHangtuxmmKeyboard::GHangtuxmmKeyboard()
 {
     float align = 0.50;
@@ -46,17 +45,18 @@ GHangtuxmmKeyboard::GHangtuxmmKeyboard()
     {
         for(int j=0; j<N_COLS; ++j)
         {
-            Gtk::Button *pButton = new Gtk::Button(&ascii);
-            //FIX: I am doing this wrong!!Not showing the letters
+            Gtk::Button *pButton = new Gtk::Button(Glib::ustring(sizeof(ascii), ascii));
             ascii++;
             pButton->set_use_underline();
             pButton->set_alignment(align, align);
             attach(*pButton, j, j+1, i, i+1);
             pButton->show();
         }
-     }
+    }
+    show();
 }
 
+//Destructor.
 GHangtuxmmKeyboard::~GHangtuxmmKeyboard()
 {
 }
