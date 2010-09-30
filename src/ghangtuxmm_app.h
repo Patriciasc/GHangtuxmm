@@ -10,6 +10,7 @@ public:
     GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refBuilder);
     ~GHangtuxmmApp();
     void test (Glib::ustring label);
+    Glib::ustring get_sentence_from_file (const Glib::ustring &file);
 
 private:
     //Action handlers

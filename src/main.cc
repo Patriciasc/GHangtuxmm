@@ -27,6 +27,7 @@
 
 #include "ghangtuxmm_app.h"
 #include <gtkmm/main.h>
+#include <glibmm.h>
 #include <iostream>
 
 int

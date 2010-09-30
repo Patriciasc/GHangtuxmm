@@ -124,6 +124,10 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
     m_Keyboard.show();
     pVBoxKeyboard->pack_start(m_Keyboard, Gtk::PACK_SHRINK);
     pVBoxKeyboard->reorder_child(m_Keyboard, 3);
+    
+    //IOChannel test.
+    Glib::ustring film_file = "films.txt";
+    get_sentence_from_file(film_file);
 }
 
 GHangtuxmmApp::~GHangtuxmmApp()
@@ -134,6 +138,37 @@ GHangtuxmmApp::~GHangtuxmmApp()
 void GHangtuxmmApp::test(Glib::ustring label)
 {
     std::cout << "Label = " << label << std::endl;
+}
+
+//Get a random sentece to guess from the given file
+Glib::ustring GHangtuxmmApp::get_sentence_from_file(const Glib::ustring& file)
+{
+    //FIX: Need to create a function for looking for the correct
+    //path and make it work in WIN too.
+    const Glib::ustring file_path = "../data/themes/" + file;
+    Glib::ustring line;
+
+    try
+    {
+        //Open file.
+        Glib::RefPtr<Glib::IOChannel> iochannel = Glib::IOChannel::create_from_file(file_path,"r");
+        //Read a line from the file. 
+        //FIX: Still need to find a GOOD way to get a random number.
+        Glib::Rand num;
+        int n_rand = num.get_int_range(1,20);
+
+        int i=0;
+        while (i != n_rand)
+        {
+            iochannel->read_line(line);
+            ++i;
+        }
+        std::cerr << line << std::endl;
+    }
+    catch(const Glib::Error& ex)
+    {
+        std::cerr << "FileError: "<< ex.what() << std::endl;
+    }
 }
 
 //Action handlers.
