@@ -28,15 +28,13 @@
 #include <gtkmm.h>
 #include <glibmm.h>
 #include <iostream>
-#include <sigc++/sigc++.h>
 #include "ghangtuxmm_keyboard.h"
 
-#define N_ROWS 2
-#define N_COLS 13
+static const int N_ROWS = 2;
+static const int N_COLS = 13;
 
-static void on_button_clicked(Gtk::Button* data);
+static void on_button_clicked(Gtk::Button* button);
 
-//Constructor.
 GHangtuxmmKeyboard::GHangtuxmmKeyboard()
 {
     float align = 0.50;
@@ -55,22 +53,19 @@ GHangtuxmmKeyboard::GHangtuxmmKeyboard()
             pButton->set_alignment(align, align);
             attach(*pButton, j, j+1, i, i+1);
             pButton->signal_clicked().connect( sigc::bind<Gtk::Button*>( sigc::ptr_fun(&on_button_clicked), pButton));
-            pButton->show();
-
         }
     }
-    show();
+    show_all_children();
 }
 
-//Destructor.
 GHangtuxmmKeyboard::~GHangtuxmmKeyboard()
 {
 }
 
-static void on_button_clicked(Gtk::Button* data)
+static void on_button_clicked(Gtk::Button* button)
 {
     std::cout << "The Button was clicked.\n" << std::endl;
-    data->set_sensitive(false);
+    button->set_sensitive(false);
     //Emit here signal for the Keyboard with label
 }
 

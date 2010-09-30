@@ -1,7 +1,6 @@
 #include "ghangtuxmm_app.h"
 #include <iostream>
 
-//Constructor.
 //FIX!!: Divide this code in multiple functions
 GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refBuilder)
 : Gtk::Window(cobject),
@@ -11,7 +10,7 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
   m_pTitleLabel(0),
   m_pStatusbar(0)
 {
-    //Get the Glade-instantiated different widgets.
+    //Get the Glade-instantiated various widgets.
     m_refBuilder->get_widget("hangtux_area", m_pImage);
     if(m_pImage)
     {
@@ -121,11 +120,11 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
     Gtk::VBox* pVBoxKeyboard;
     m_refBuilder->get_widget("vbox2", pVBoxKeyboard);
 
+    m_Keyboard.show();
     pVBoxKeyboard->pack_start(m_Keyboard, Gtk::PACK_SHRINK);
     pVBoxKeyboard->reorder_child(m_Keyboard, 3);
 }
 
-//Destructor.
 GHangtuxmmApp::~GHangtuxmmApp()
 {
 }
