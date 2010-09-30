@@ -120,6 +120,7 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
     Gtk::VBox* pVBoxKeyboard;
     m_refBuilder->get_widget("vbox2", pVBoxKeyboard);
 
+    m_Keyboard.sig_on_button_clicked().connect( sigc::mem_fun(*this, &GHangtuxmmApp::test));
     m_Keyboard.show();
     pVBoxKeyboard->pack_start(m_Keyboard, Gtk::PACK_SHRINK);
     pVBoxKeyboard->reorder_child(m_Keyboard, 3);
@@ -127,6 +128,12 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
 
 GHangtuxmmApp::~GHangtuxmmApp()
 {
+}
+
+//Test signal handler.
+void GHangtuxmmApp::test(Glib::ustring label)
+{
+    std::cout << "Label = " << label << std::endl;
 }
 
 //Action handlers.

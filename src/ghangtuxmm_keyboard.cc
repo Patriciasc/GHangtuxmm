@@ -52,7 +52,8 @@ GHangtuxmmKeyboard::GHangtuxmmKeyboard()
             pButton->set_use_underline();
             pButton->set_alignment(align, align);
             attach(*pButton, j, j+1, i, i+1);
-            pButton->signal_clicked().connect( sigc::bind<Gtk::Button*>( sigc::ptr_fun(&on_button_clicked), pButton));
+            pButton->signal_clicked().connect( sigc::bind<Gtk::Button*>( sigc::mem_fun( *this,
+                                               &GHangtuxmmKeyboard::on_button_clicked), pButton));
         }
     }
     show_all_children();
@@ -62,17 +63,19 @@ GHangtuxmmKeyboard::~GHangtuxmmKeyboard()
 {
 }
 
-static void on_button_clicked(Gtk::Button* button)
+void GHangtuxmmKeyboard::on_button_clicked(Gtk::Button* button)
 {
     std::cout << "The Button was clicked.\n" << std::endl;
     button->set_sensitive(false);
-    //Emit here signal for the Keyboard with label
+    //Emit signal for the Keyboard.
+    m_on_button_clicked.emit(button->get_label());
+}
+
+GHangtuxmmKeyboard::T_signal_clicked GHangtuxmmKeyboard::sig_on_button_clicked()
+{
+    return m_on_button_clicked;
 }
 
 void GHangtuxmmKeyboard::set_sensitive(bool sensitive)
-{
-}
-
-void GHangtuxmmKeyboard::on_key_clicked(const Glib::ustring key_name)
 {
 }

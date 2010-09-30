@@ -9,6 +9,7 @@ class GHangtuxmmApp : public Gtk::Window
 public:
     GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refBuilder);
     ~GHangtuxmmApp();
+    void test (Glib::ustring label);
 
 private:
     //Action handlers

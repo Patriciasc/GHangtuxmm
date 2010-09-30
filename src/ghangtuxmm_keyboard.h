@@ -35,11 +35,16 @@ class GHangtuxmmKeyboard : public Gtk::Table
 public:
     GHangtuxmmKeyboard();
     ~GHangtuxmmKeyboard();
-
     void set_sensitive(bool sensitive);
 
+    //Signal accessor for the only keyboard's signal.
+    typedef sigc::signal<void, const Glib::ustring> T_signal_clicked;
+    T_signal_clicked sig_on_button_clicked();
+
 private:
-    void on_key_clicked(const Glib::ustring key_name);
+    void on_button_clicked(Gtk::Button* button);
+
+    T_signal_clicked m_on_button_clicked;
 };
 
 #endif /* GHANGTUXMM_KEYBOARD_H__ */
