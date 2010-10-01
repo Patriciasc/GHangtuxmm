@@ -126,7 +126,7 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
     pVBoxKeyboard->reorder_child(m_Keyboard, 3);
     
     //IOChannel test.
-    Glib::ustring film_file = "films.txt";
+    const std::string film_file = "films.txt";
     get_sentence_from_file(film_file);
 }
 
@@ -141,11 +141,11 @@ void GHangtuxmmApp::test(Glib::ustring label)
 }
 
 //Get a random sentece to guess from the given file
-Glib::ustring GHangtuxmmApp::get_sentence_from_file(const Glib::ustring& file)
+Glib::ustring GHangtuxmmApp::get_sentence_from_file(const std::string& file)
 {
     //FIX: Need to create a function for looking for the correct
     //path and make it work in WIN too.
-    const Glib::ustring file_path = "../data/themes/" + file;
+    const std::string file_path = "../data/themes/" + file;
     Glib::ustring line;
 
     try
