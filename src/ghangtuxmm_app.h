@@ -10,6 +10,7 @@ public:
     GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refBuilder);
     ~GHangtuxmmApp();
     void test( Glib::ustring label);
+    Glib::ustring ghmm_strcanon( Glib::ustring& string, const Glib::ustring& valid_chars, char substitutor);
     Glib::ustring get_sentence_from_file( const std::string &file);
 
 private:
@@ -25,6 +26,9 @@ private:
     Gtk::Label* m_pTitleLabel;
     GHangtuxmmKeyboard m_Keyboard;
     Gtk::Statusbar* m_pStatusbar;
+    Glib::ustring m_GuessSentence;
+    Glib::ustring m_DisplaySentence;
+    Glib::ustring m_AssertedChars;
 };
 
 #endif //GHANGTUXMM_DERIVED_WINDOW_H

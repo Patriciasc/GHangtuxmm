@@ -125,10 +125,54 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
     pVBoxKeyboard->pack_start(m_Keyboard, Gtk::PACK_SHRINK);
     pVBoxKeyboard->reorder_child(m_Keyboard, 3);
     
-    //IOChannel test.
+    //Get a random sentence to guess.
     const std::string film_file = "films.txt";
-    get_sentence_from_file(film_file);
+    m_GuessSentence = get_sentence_from_file(film_file);
+    std::cout << "Sentence = " << m_GuessSentence << std::endl;
+
+    //test ghmm_strcanon
+    m_DisplaySentence = ghmm_strcanon(m_GuessSentence, "AON", '_');
+    std::cout << "Display Sentence = " << m_DisplaySentence << std::endl;
+    m_DisplaySentence = "";
 }
+
+//Function that tries to reproduce the function of g_strcanon.
+//It still shows one '_' character more at the end of
+//m_DisplaySentence. FIX: delete that character!.
+Glib::ustring GHangtuxmmApp::ghmm_strcanon(Glib::ustring& string,
+                                           const Glib::ustring& valid_chars,
+                                           char substitutor)
+{
+    Glib::ustring DisplaySentence = "";
+    bool in_valid_chars = false;
+
+    for(Glib::ustring::iterator i=string.begin(); i!=string.end(); ++i)
+    {
+        for(Glib::ustring::const_iterator j=valid_chars.begin(); j!=valid_chars.end(); ++j)
+        {
+            //Is a valid character.
+            if(*i == *j)
+            {
+                in_valid_chars = true;
+                break;
+            }
+        }
+        if(in_valid_chars)
+            DisplaySentence.push_back(*i);
+        //Is not a valid character.
+        else
+        {
+            if(*i==' ')
+                //Insert space.
+                DisplaySentence.push_back(' ');
+            else
+                DisplaySentence.push_back(substitutor);
+        }
+        in_valid_chars = false;
+    }
+    return DisplaySentence;
+}
+
 
 GHangtuxmmApp::~GHangtuxmmApp()
 {
@@ -146,13 +190,13 @@ Glib::ustring GHangtuxmmApp::get_sentence_from_file(const std::string& file)
     //FIX: Need to create a function for looking for the correct
     //path and make it work in WIN too.
     const std::string file_path = "../data/themes/" + file;
-    Glib::ustring line;
+    Glib::ustring sentence;
 
     try
     {
         //Open file.
         Glib::RefPtr<Glib::IOChannel> iochannel = Glib::IOChannel::create_from_file(file_path,"r");
-        //Read a line from the file. 
+        //Read a sentence from the file. 
         //FIX: Still need to find a GOOD way to get a random number.
         Glib::Rand num;
         int n_rand = num.get_int_range(1,20);
@@ -160,15 +204,15 @@ Glib::ustring GHangtuxmmApp::get_sentence_from_file(const std::string& file)
         int i=0;
         while (i != n_rand)
         {
-            iochannel->read_line(line);
+            iochannel->read_line(sentence);
             ++i;
         }
-        std::cerr << line << std::endl;
     }
     catch(const Glib::Error& ex)
     {
         std::cerr << "FileError: "<< ex.what() << std::endl;
     }
+    return sentence;
 }
 
 //Action handlers.
