@@ -4,6 +4,7 @@ aclocal.m4
 config.*
 configure
 *tar.gz
+INSTALL
 main
 Makefile
 Makefile.in
