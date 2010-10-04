@@ -33,7 +33,9 @@
 static const int N_ROWS = 2;
 static const int N_COLS = 13;
 
+const void on_set_sensitive(Gtk::Widget* widget);
 static void on_button_clicked(Gtk::Button* button);
+void on_set_sensitive(GtkWidget* widget, bool sensitive);
 
 GHangtuxmmKeyboard::GHangtuxmmKeyboard()
 {
@@ -76,6 +78,14 @@ GHangtuxmmKeyboard::T_signal_clicked GHangtuxmmKeyboard::sig_on_button_clicked()
     return m_on_button_clicked;
 }
 
+//Followed the Gtk::Container::foreach() documentation but does not work
 void GHangtuxmmKeyboard::set_sensitive(bool sensitive)
 {
+    sigc::slot<void, Gtk::Widget&> my_slot = sigc::bind<bool>( sigc::ptr_fun(&on_set_sensitive),sensitive);
+    foreach(my_slot);
+}
+
+void on_set_sensitive(Gtk::Widget* widget, bool sensitive)
+{
+    widget->set_sensitive(sensitive);
 }
