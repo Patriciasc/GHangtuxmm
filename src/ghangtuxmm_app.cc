@@ -1,6 +1,8 @@
 #include "ghangtuxmm_app.h"
 #include <iostream>
 
+static const int TUX_IMAGES = 8;
+
 //FIX!!: Divide this code in multiple functions
 GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refBuilder)
 : Gtk::Window(cobject),
@@ -9,7 +11,11 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
   m_pDisplayLabel(0),
   m_pTitleLabel(0),
   m_pStatusbar(0),
-  m_GameTheme(THEME_FILMS)
+  m_GameTheme(THEME_FILMS),
+  m_NImage(0),
+  m_AssertedChars(""),
+  m_DisplaySentence(""),
+  m_GuessSentence("")
 {
     //Get the Glade-instantiated various widgets.
     m_refBuilder->get_widget("hangtux_area", m_pImage);
@@ -115,15 +121,13 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
     Gtk::VBox* pVBoxKeyboard;
     m_refBuilder->get_widget("vbox2", pVBoxKeyboard);
 
-    m_Keyboard.sig_on_button_clicked().connect( sigc::mem_fun(*this, &GHangtuxmmApp::test));
+    m_Keyboard.sig_on_button_clicked().connect( sigc::mem_fun(*this, &GHangtuxmmApp::check_letter_in_sentence));
     m_Keyboard.show();
     pVBoxKeyboard->pack_start(m_Keyboard, Gtk::PACK_SHRINK);
     pVBoxKeyboard->reorder_child(m_Keyboard, 3);
     
     //start_game()
     start_game();
-    std::cout << "Sentence = " << m_GuessSentence << std::endl;
-    std::cout << "Display Sentence = " << m_DisplaySentence << std::endl;
 }
 
 //For each character in guessSentence, if the character is not in valid_chars,
@@ -177,9 +181,36 @@ GHangtuxmmApp::~GHangtuxmmApp()
 }
 
 //Test signal handler.
-void GHangtuxmmApp::test(Glib::ustring label)
+void GHangtuxmmApp::check_letter_in_sentence(Glib::ustring label)
 {
-    std::cout << "Label = " << label << std::endl;
+    if (m_GuessSentence.find(label) != Glib::ustring::npos)
+    {
+        if (m_AssertedChars.length() < m_DisplaySentence.length())
+        {
+            m_AssertedChars.push_back(label[0]);
+            m_DisplaySentence = "";
+            replace_characters(m_GuessSentence, m_DisplaySentence, m_AssertedChars, '_');
+            m_pDisplayLabel->set_text(m_DisplaySentence);
+        }
+        else
+        {
+            m_Winner = GAME_WON;
+            end_game();
+        }
+    }
+    else
+    {
+        if(m_NImage < TUX_IMAGES)
+        {
+            m_pImage->set("../data/images/Tux"+( Glib::ustring::compose("%1",m_NImage))+".png");
+            ++m_NImage;
+        }
+        else
+        {
+            m_Winner = GAME_LOST;
+            end_game();
+        }
+    }
 }
 
 //Get a random sentece to guess from the given file
@@ -240,7 +271,7 @@ void GHangtuxmmApp::start_game()
     m_GuessSentence = get_sentence_from_file(theme_file);
 
     //Format the m_DisplaySentence and display it.
-    m_DisplaySentence = "";
+    //m_DisplaySentence = "";
     replace_characters(m_GuessSentence, m_DisplaySentence, "", '_');
     m_pDisplayLabel->set_text(m_DisplaySentence);
 
@@ -249,13 +280,14 @@ void GHangtuxmmApp::start_game()
     m_pTitleLabel->set_text("Guess the "+theme_label);
 
     //Set Keyboard to sensitive.
-    m_Keyboard.set_sensitive(false);
+    //m_Keyboard.set_sensitive(false);
 
     //Set Statusbar.
     //TODO
 
     //Set inicial image.
     m_pImage->set("../data/images/Tux0.png");
+    ++m_NImage;
 }
 
 void GHangtuxmmApp::end_game()
@@ -265,7 +297,7 @@ void GHangtuxmmApp::end_game()
     //Set title label.
     m_pTitleLabel->set_text("");
     //Set keyboard insensitive.
-    m_Keyboard.set_sensitive(false);
+    //m_Keyboard.set_sensitive(false);
     //Set other parameters depending on the way the game finishes.
     switch(m_Winner)
     {

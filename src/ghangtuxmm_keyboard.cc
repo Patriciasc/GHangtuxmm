@@ -33,9 +33,9 @@
 static const int N_ROWS = 2;
 static const int N_COLS = 13;
 
-const void on_set_sensitive(Gtk::Widget* widget);
+const void on_set_sensitive(Gtk::Widget* button);
 static void on_button_clicked(Gtk::Button* button);
-void on_set_sensitive(GtkWidget* widget, bool sensitive);
+void on_set_sensitive(Gtk::Widget* button, bool sensitive);
 
 GHangtuxmmKeyboard::GHangtuxmmKeyboard()
 {
@@ -67,7 +67,6 @@ GHangtuxmmKeyboard::~GHangtuxmmKeyboard()
 
 void GHangtuxmmKeyboard::on_button_clicked(Gtk::Button* button)
 {
-    std::cout << "The Button was clicked.\n" << std::endl;
     button->set_sensitive(false);
     //Emit signal for the Keyboard.
     m_on_button_clicked.emit(button->get_label());
@@ -78,14 +77,16 @@ GHangtuxmmKeyboard::T_signal_clicked GHangtuxmmKeyboard::sig_on_button_clicked()
     return m_on_button_clicked;
 }
 
-//Followed the Gtk::Container::foreach() documentation but does not work
+//Followed the Gtk::Container::foreach() documentation but does not work.
+/*
 void GHangtuxmmKeyboard::set_sensitive(bool sensitive)
 {
     sigc::slot<void, Gtk::Widget&> my_slot = sigc::bind<bool>( sigc::ptr_fun(&on_set_sensitive),sensitive);
     foreach(my_slot);
 }
 
-void on_set_sensitive(Gtk::Widget* widget, bool sensitive)
+void on_set_sensitive(Gtk::Button* button, bool sensitive)
 {
-    widget->set_sensitive(sensitive);
+    button->set_sensitive(sensitive);
 }
+*/

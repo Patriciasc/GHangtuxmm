@@ -9,7 +9,7 @@ class GHangtuxmmApp : public Gtk::Window
 public:
     GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refBuilder);
     ~GHangtuxmmApp();
-    void test( Glib::ustring label);
+    void check_letter_in_sentence( Glib::ustring label);
     void replace_characters(Glib::ustring& guessSentence, Glib::ustring& displaySentence, const Glib::ustring& valid_chars, char substitutor);
     Glib::ustring get_sentence_from_file( const std::string &file);
     void start_game();
@@ -47,6 +47,7 @@ private:
     Glib::ustring m_AssertedChars;
     GameTheme m_GameTheme;
     EndCondition m_Winner;
+    int m_NImage;
     Glib::RefPtr<Gtk::RadioAction> m_refFilms;
     Glib::RefPtr<Gtk::RadioAction> m_refPersons;
     Glib::RefPtr<Gtk::RadioAction> m_refObjects;
