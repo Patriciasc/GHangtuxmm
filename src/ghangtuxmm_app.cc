@@ -1,24 +1,18 @@
 #include "ghangtuxmm_app.h"
 #include <iostream>
 
-
 //FIX!!: Divide this code in multiple functions
 GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refBuilder)
 : Gtk::Window(cobject),
   m_refBuilder(refBuilder),
   m_pImage(0),
-  m_pSentenceLabel(0),
+  m_pDisplayLabel(0),
   m_pTitleLabel(0),
   m_pStatusbar(0)
 {
     //Get the Glade-instantiated various widgets.
     m_refBuilder->get_widget("hangtux_area", m_pImage);
-    if(m_pImage)
-    {
-        m_pImage->set("images/Tux0.png");
-    }
-
-    m_refBuilder->get_widget("for_sentence_label", m_pSentenceLabel);
+    m_refBuilder->get_widget("for_sentence_label", m_pDisplayLabel);
     m_refBuilder->get_widget("for_title_label", m_pTitleLabel);
     m_refBuilder->get_widget("statusbar", m_pStatusbar);
     
@@ -39,7 +33,6 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
     refActionGroup->add( Gtk::Action::create("MenuSettingsThemes", "_Themes"));
 
     Gtk::RadioAction::Group group_theme;
-    Glib::RefPtr<Gtk::RadioAction> m_refFilms, m_refPersons, m_refObjects;
     m_refFilms = Gtk::RadioAction::create(group_theme, "MenuThemesFilms", "_Films");
     refActionGroup->add(m_refFilms,
       sigc::mem_fun(*this, &GHangtuxmmApp::on_action_game_new));
@@ -126,20 +119,16 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
     pVBoxKeyboard->pack_start(m_Keyboard, Gtk::PACK_SHRINK);
     pVBoxKeyboard->reorder_child(m_Keyboard, 3);
     
-    //Get a random sentence to guess.
-    const std::string film_file = "films.txt";
-    m_GuessSentence = get_sentence_from_file(film_file);
+    //start_game()
+    m_GameTheme = THEME_FILMS;
+    start_game();
     std::cout << "Sentence = " << m_GuessSentence << std::endl;
-
-    //test replace_characters
-    m_DisplaySentence = "";
-    replace_characters(m_GuessSentence, m_DisplaySentence, "AON", '_');
     std::cout << "Display Sentence = " << m_DisplaySentence << std::endl;
 }
 
 //For each character in guessSentence, if the character is not in valid_chars,
 //replaces the character with substitutor. Modifies displaySentence.
-//This function reproduce the behaviour of g_strcanon.
+//This function reproduces the behaviour of g_strcanon.
 void GHangtuxmmApp::replace_characters(Glib::ustring& guessSentence,
                                                 Glib::ustring& displaySentence,
                                                 const Glib::ustring& validChars,
@@ -224,15 +213,73 @@ Glib::ustring GHangtuxmmApp::get_sentence_from_file(const std::string& file)
     return sentence;
 }
 
+void GHangtuxmmApp::start_game()
+{
+    Glib::ustring theme_file;
+    Glib::ustring theme_label;
+
+    //Choose the theme file.
+    switch (m_GameTheme)
+    {
+      case THEME_FILMS:
+          theme_file = "THEME_FILMS.txt";
+          theme_label = "FILM";
+          break;
+      case THEME_PERSONS:
+          theme_file = "THEME_PERSONS.txt";
+          theme_label = "PERSON";
+          break;
+      case THEME_OBJECTS:
+          theme_file = "THEME_OBJECTS.txt";
+          theme_label = "OBJECT";
+          break;
+      default:
+          std::cout << "No theme file found under the given name" << std::endl;
+    }
+    //Search for a random sentence to guess.
+    m_GuessSentence = get_sentence_from_file(theme_file);
+
+    //Format the m_DisplaySentence and display it.
+    m_DisplaySentence = "";
+    replace_characters(m_GuessSentence, m_DisplaySentence, "", '_');
+    m_pDisplayLabel->set_text(m_DisplaySentence);
+
+    //Display title label.
+    //FIX: Format this text into a more visible one.
+    m_pTitleLabel->set_text("Guess the "+theme_label);
+
+    //Set Keyboard to sensitive.
+    m_Keyboard.set_sensitive(false);
+
+    //Set Statusbar.
+    //TODO
+
+    //Set inicial image.
+    m_pImage->set("../data/images/Tux0.png");
+}
+
+
 //Action handlers.
+//Starts a new game with the selected theme.
 void GHangtuxmmApp::on_action_game_new()
 {
+    //Set actual theme.
+    if(m_refFilms->get_active())
+        m_GameTheme = THEME_FILMS;
+    if(m_refPersons->get_active())
+        m_GameTheme = THEME_PERSONS;
+    if(m_refObjects->get_active())
+        m_GameTheme = THEME_OBJECTS;
+
+    //Start new game.
+    start_game();
 }
 
 void GHangtuxmmApp::on_action_game_solve()
 {
 }
 
+//Quits the game.
 void GHangtuxmmApp::on_action_game_quit()
 {
     hide();
