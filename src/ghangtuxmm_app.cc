@@ -11,11 +11,11 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
   m_pDisplayLabel(0),
   m_pTitleLabel(0),
   m_pStatusbar(0),
-  m_GameTheme(THEME_FILMS),
-  m_NImage(0),
-  m_AssertedChars(""),
+  m_GuessSentence(""),
   m_DisplaySentence(""),
-  m_GuessSentence("")
+  m_AssertedChars(""),
+  m_GameTheme(THEME_FILMS),
+  m_NImage(0)
 {
     //Get the Glade-instantiated various widgets.
     m_refBuilder->get_widget("hangtux_area", m_pImage);
