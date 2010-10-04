@@ -33,7 +33,7 @@
 static const int N_ROWS = 2;
 static const int N_COLS = 13;
 
-const void on_set_sensitive(Gtk::Widget* button);
+void on_set_sensitive(Gtk::Widget* button);
 static void on_button_clicked(Gtk::Button* button);
 void on_set_sensitive(Gtk::Widget* button, bool sensitive);
 
