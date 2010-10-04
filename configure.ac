@@ -36,10 +36,10 @@ PKG_CHECK_MODULES([DEP], [gtk+-2.0 >= 2.20
                           pangomm-1.4 >= 2.26
                           gmodule-export-2.0])
 
-DISABLE_SINGLE_INCLUDES="-DG_DISABLE_SINGLE_INCLUDES -DGDK_PIXBUF_DISABLE_SINGLE_INCLUDES -DGTK_DISABLE_SINGLE_INCLUDES"
+AC_LANG([C++])
 DK_ARG_ENABLE_WARNINGS([GHANGTUX_WARNING_FLAGS],
-                       [-Wall -w1 $DISABLE_SINGLE_INCLUDES],
-                       [-pedantic -Wall -Wextra -w1 $DISABLE_SINGLE_INCLUDES],
+                       [-Wall -w1],
+                       [-pedantic -Wall -Wextra -w1],
                        [GTK GTKMM GDK GDKMM GDK_PIXBUF G GLIBMM PANGOMM])
 
 AC_CONFIG_FILES([Makefile])
