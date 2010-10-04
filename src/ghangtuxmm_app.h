@@ -15,19 +15,19 @@ public:
     void start_game();
     void end_game();
 
-    typedef enum
+    enum GameTheme
     {
         THEME_FILMS,
         THEME_PERSONS,
         THEME_OBJECTS
-    }GameTheme;
+    };
 
-    typedef enum
+    enum EndCondition
     {
         GAME_WON,     /*Player won*/
         GAME_LOST,    /*Player lost*/
         GAME_SOLUTION /*Player asked for the solution*/
-    }EndCondition;
+    };
 
 private:
     //Action handlers
