@@ -8,7 +8,8 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
   m_pImage(0),
   m_pDisplayLabel(0),
   m_pTitleLabel(0),
-  m_pStatusbar(0)
+  m_pStatusbar(0),
+  m_GameTheme(THEME_FILMS)
 {
     //Get the Glade-instantiated various widgets.
     m_refBuilder->get_widget("hangtux_area", m_pImage);
@@ -120,7 +121,6 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
     pVBoxKeyboard->reorder_child(m_Keyboard, 3);
     
     //start_game()
-    m_GameTheme = THEME_FILMS;
     start_game();
     std::cout << "Sentence = " << m_GuessSentence << std::endl;
     std::cout << "Display Sentence = " << m_DisplaySentence << std::endl;
@@ -258,6 +258,34 @@ void GHangtuxmmApp::start_game()
     m_pImage->set("../data/images/Tux0.png");
 }
 
+void GHangtuxmmApp::end_game()
+{
+    //Set display label.
+    m_pDisplayLabel->set_text(m_GuessSentence);
+    //Set title label.
+    m_pTitleLabel->set_text("");
+    //Set keyboard insensitive.
+    m_Keyboard.set_sensitive(false);
+    //Set other parameters depending on the way the game finishes.
+    switch(m_Winner)
+    {
+      case(GAME_WON):
+          //Statusbar and image.
+          break;
+      case(GAME_LOST):
+          //Statusbar and image.
+          break;
+      case(GAME_SOLUTION):
+          //Statusbar and image.
+          break;
+      default:
+          std::cout << "m_Winner Error" << std::endl;
+    }
+    //Set Statusbar.
+    //TODO
+    //Set final image.
+    //TODO
+}
 
 //Action handlers.
 //Starts a new game with the selected theme.
@@ -277,6 +305,8 @@ void GHangtuxmmApp::on_action_game_new()
 
 void GHangtuxmmApp::on_action_game_solve()
 {
+    m_Winner = GAME_SOLUTION;
+    end_game();
 }
 
 //Quits the game.

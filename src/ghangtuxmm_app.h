@@ -13,6 +13,7 @@ public:
     void replace_characters(Glib::ustring& guessSentence, Glib::ustring& displaySentence, const Glib::ustring& valid_chars, char substitutor);
     Glib::ustring get_sentence_from_file( const std::string &file);
     void start_game();
+    void end_game();
 
     typedef enum
     {
@@ -20,6 +21,13 @@ public:
         THEME_PERSONS,
         THEME_OBJECTS
     }GameTheme;
+
+    typedef enum
+    {
+        GAME_WON,     /*Player won*/
+        GAME_LOST,    /*Player lost*/
+        GAME_SOLUTION /*Player asked for the solution*/
+    }EndCondition;
 
 private:
     //Action handlers
@@ -38,6 +46,7 @@ private:
     Glib::ustring m_DisplaySentence;
     Glib::ustring m_AssertedChars;
     GameTheme m_GameTheme;
+    EndCondition m_Winner;
     Glib::RefPtr<Gtk::RadioAction> m_refFilms;
     Glib::RefPtr<Gtk::RadioAction> m_refPersons;
     Glib::RefPtr<Gtk::RadioAction> m_refObjects;
