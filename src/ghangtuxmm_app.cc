@@ -1,6 +1,7 @@
 #include "ghangtuxmm_app.h"
 #include <iostream>
 
+
 //FIX!!: Divide this code in multiple functions
 GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refBuilder)
 : Gtk::Window(cobject),
@@ -130,47 +131,55 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
     m_GuessSentence = get_sentence_from_file(film_file);
     std::cout << "Sentence = " << m_GuessSentence << std::endl;
 
-    //test ghmm_strcanon
-    m_DisplaySentence = ghmm_strcanon(m_GuessSentence, "AON", '_');
-    std::cout << "Display Sentence = " << m_DisplaySentence << std::endl;
+    //test replace_characters
     m_DisplaySentence = "";
+    replace_characters(m_GuessSentence, m_DisplaySentence, "AON", '_');
+    std::cout << "Display Sentence = " << m_DisplaySentence << std::endl;
 }
 
-//Function that tries to reproduce the function of g_strcanon.
-//It still shows one '_' character more at the end of
-//m_DisplaySentence. FIX: delete that character!.
-Glib::ustring GHangtuxmmApp::ghmm_strcanon(Glib::ustring& string,
-                                           const Glib::ustring& valid_chars,
-                                           char substitutor)
+//For each character in guessSentence, if the character is not in valid_chars,
+//replaces the character with substitutor. Modifies displaySentence.
+//This function reproduce the behaviour of g_strcanon.
+void GHangtuxmmApp::replace_characters(Glib::ustring& guessSentence,
+                                                Glib::ustring& displaySentence,
+                                                const Glib::ustring& validChars,
+                                                char substitutor)
 {
-    Glib::ustring DisplaySentence = "";
-    bool in_valid_chars = false;
-
-    for(Glib::ustring::iterator i=string.begin(); i!=string.end(); ++i)
+    for(Glib::ustring::iterator i=guessSentence.begin(); i!= -- guessSentence.end(); ++i)
     {
-        for(Glib::ustring::const_iterator j=valid_chars.begin(); j!=valid_chars.end(); ++j)
+        bool is_valid_char = false;
+        //Look if the guess char is a valid char.
+        for(Glib::ustring::const_iterator j=validChars.begin(); j!=validChars.end(); ++j)
         {
-            //Is a valid character.
             if(*i == *j)
             {
-                in_valid_chars = true;
+                is_valid_char = true;
                 break;
             }
         }
-        if(in_valid_chars)
-            DisplaySentence.push_back(*i);
-        //Is not a valid character.
-        else
+        // When guess char is valid, we show it.
+        if(is_valid_char)
+        {
+            displaySentence.push_back(*i);
+        }
+        // When guess char is not valid, we substitute it
+        // with the substitutor if it is not a space or 
+        // end of line.
+        else 
         {
             if(*i==' ')
-                //Insert space.
-                DisplaySentence.push_back(' ');
+            {
+                displaySentence.push_back(' ');
+            }
             else
-                DisplaySentence.push_back(substitutor);
+            {
+                if(i != guessSentence.end())
+                { 
+                    displaySentence.push_back(substitutor);
+                }
+            }
         }
-        in_valid_chars = false;
     }
-    return DisplaySentence;
 }
 
 
