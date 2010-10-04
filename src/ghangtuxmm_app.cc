@@ -280,7 +280,7 @@ void GHangtuxmmApp::start_game()
     m_pTitleLabel->set_text("Guess the "+theme_label);
 
     //Set Keyboard to sensitive.
-    //m_Keyboard.set_sensitive(false);
+    m_Keyboard.set_sensitive(true);
 
     //Set Statusbar.
     //TODO
@@ -297,7 +297,7 @@ void GHangtuxmmApp::end_game()
     //Set title label.
     m_pTitleLabel->set_text("");
     //Set keyboard insensitive.
-    //m_Keyboard.set_sensitive(false);
+    m_Keyboard.set_sensitive(false);
     //Set other parameters depending on the way the game finishes.
     switch(m_Winner)
     {

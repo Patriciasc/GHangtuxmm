@@ -33,10 +33,6 @@
 static const int N_ROWS = 2;
 static const int N_COLS = 13;
 
-void on_set_sensitive(Gtk::Widget* button);
-static void on_button_clicked(Gtk::Button* button);
-void on_set_sensitive(Gtk::Widget* button, bool sensitive);
-
 GHangtuxmmKeyboard::GHangtuxmmKeyboard()
 {
     float align = 0.50;
@@ -78,15 +74,13 @@ GHangtuxmmKeyboard::T_signal_clicked GHangtuxmmKeyboard::sig_on_button_clicked()
 }
 
 //Followed the Gtk::Container::foreach() documentation but does not work.
-/*
 void GHangtuxmmKeyboard::set_sensitive(bool sensitive)
 {
-    sigc::slot<void, Gtk::Widget&> my_slot = sigc::bind<bool>( sigc::ptr_fun(&on_set_sensitive),sensitive);
+    Gtk::Container::ForeachSlot my_slot = sigc::bind<bool>( sigc::mem_fun(*this, &GHangtuxmmKeyboard::on_set_sensitive), sensitive);
     foreach(my_slot);
 }
 
-void on_set_sensitive(Gtk::Button* button, bool sensitive)
+void GHangtuxmmKeyboard::on_set_sensitive(Gtk::Widget& button, const bool& sensitive)
 {
-    button->set_sensitive(sensitive);
+    button.set_sensitive(sensitive);
 }
-*/
