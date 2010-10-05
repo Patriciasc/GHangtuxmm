@@ -1,9 +1,12 @@
 #include "ghangtuxmm_app.h"
 #include <iostream>
+#include "config.h"
 
 static const int TUX_IMAGES = 7;
 static const int MIN_RAND = 1;
 static const int MAX_RAND = 41;
+
+static std::string get_system_file(const Glib::ustring& filename);
 
 //FIX!!: Divide this code in multiple functions
 GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refBuilder)
@@ -183,7 +186,8 @@ GHangtuxmmApp::~GHangtuxmmApp()
 {
 }
 
-//Test signal handler.
+//Looks for a the player's given letter in the guess sentence.
+//If the player does not assert, it will show the next Tux image.
 void GHangtuxmmApp::check_letter_in_sentence(Glib::ustring label)
 {
     if (m_GuessSentence.find(label) != Glib::ustring::npos)
@@ -197,6 +201,7 @@ void GHangtuxmmApp::check_letter_in_sentence(Glib::ustring label)
         //FIX: This comparation is not working??
         if (m_DisplaySentence.compare(m_GuessSentence) == 0)
         {
+            std::cout << "EQUAL " << std::endl;
             m_Winner = END_CONDITION_WON;
             end_game();
         }
@@ -247,6 +252,7 @@ Glib::ustring GHangtuxmmApp::get_sentence_from_file(const std::string& file)
     return sentence;
 }
 
+//Set up the game.
 void GHangtuxmmApp::start_game()
 {
     Glib::ustring theme_file;
@@ -297,8 +303,14 @@ void GHangtuxmmApp::start_game()
     //Set inicial image.
     m_pImage->set("../data/images/Tux0.png");
     ++m_NImage;
+
+    //XXX:test
+    Glib::ustring arch= "ui/ghangtuxmm.glade";
+    std::string file = get_system_file(arch);
+    std::cout << "data dir = " << file << std::endl;
 }
 
+//Finishes the game.
 void GHangtuxmmApp::end_game()
 {
     //Set display label.
@@ -312,23 +324,46 @@ void GHangtuxmmApp::end_game()
     {
       case(END_CONDITION_WON):
           m_pImage->set("../data/images/Tux8.png");
-          //Statusbar and image.
+          //Statusbar.
           break;
       case(END_CONDITION_LOST):
           m_pImage->set("../data/images/Tux7.png");
-          //Statusbar and image.
+          //Statusbar.
           break;
       case(END_CONDITION_SOLUTION):
           m_pImage->set("../data/images/Tux7.png");
-          //Statusbar and image.
+          //Statusbar.
           break;
       default:
           std::cout << "m_Winner Error" << std::endl;
     }
     //Set Statusbar.
     //TODO
-    //Set final image.
-    //TODO
+}
+
+//Search system directories for the given filename.
+static std::string get_system_file(const Glib::ustring& filename)
+{
+    std::string pathname = "";
+    Glib::ustring separator = "/";
+    const gchar* const* data_dirs;
+    std::vector<std::string> system_data_dirs;
+
+    for(data_dirs=g_get_system_data_dirs(); *data_dirs!=NULL; data_dirs++)
+    {
+        system_data_dirs.push_back(*data_dirs);
+        for(std::vector<std::string>::iterator i=system_data_dirs.begin(); i!=system_data_dirs.end(); ++i)
+        {
+            //use Glib::build_filename here.
+            *i+= PACKAGE_NAME+separator+filename;
+            if(Glib::file_test(*i,Glib::FILE_TEST_EXISTS))
+            {
+                pathname = *i;
+                break;
+            }
+        }
+    }
+    return pathname;
 }
 
 //Action handlers.
@@ -347,6 +382,7 @@ void GHangtuxmmApp::on_action_game_new()
     start_game();
 }
 
+//Shows the solution for the game.
 void GHangtuxmmApp::on_action_game_solve()
 {
     m_Winner = END_CONDITION_SOLUTION;
