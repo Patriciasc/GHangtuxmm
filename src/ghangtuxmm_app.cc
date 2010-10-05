@@ -2,6 +2,8 @@
 #include <iostream>
 
 static const int TUX_IMAGES = 7;
+static const int MIN_RAND = 1;
+static const int MAX_RAND = 41;
 
 //FIX!!: Divide this code in multiple functions
 GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refBuilder)
@@ -195,7 +197,7 @@ void GHangtuxmmApp::check_letter_in_sentence(Glib::ustring label)
         //FIX: This comparation is not working??
         if (m_DisplaySentence.compare(m_GuessSentence) == 0)
         {
-            m_Winner = GAME_WON;
+            m_Winner = END_CONDITION_WON;
             end_game();
         }
     }
@@ -208,7 +210,7 @@ void GHangtuxmmApp::check_letter_in_sentence(Glib::ustring label)
         }
         else
         {
-            m_Winner = GAME_LOST;
+            m_Winner = END_CONDITION_LOST;
             end_game();
         }
     }
@@ -229,7 +231,7 @@ Glib::ustring GHangtuxmmApp::get_sentence_from_file(const std::string& file)
 
         //Read a random sentence from the file. 
         Glib::Rand num;
-        int n_rand = num.get_int_range(1,20);
+        int n_rand = num.get_int_range(MIN_RAND,MAX_RAND);
         int i=0;
 
         while (i != n_rand)
@@ -308,15 +310,15 @@ void GHangtuxmmApp::end_game()
     //Set other parameters depending on the way the game finishes.
     switch(m_Winner)
     {
-      case(GAME_WON):
+      case(END_CONDITION_WON):
           m_pImage->set("../data/images/Tux8.png");
           //Statusbar and image.
           break;
-      case(GAME_LOST):
+      case(END_CONDITION_LOST):
           m_pImage->set("../data/images/Tux7.png");
           //Statusbar and image.
           break;
-      case(GAME_SOLUTION):
+      case(END_CONDITION_SOLUTION):
           m_pImage->set("../data/images/Tux7.png");
           //Statusbar and image.
           break;
@@ -347,7 +349,7 @@ void GHangtuxmmApp::on_action_game_new()
 
 void GHangtuxmmApp::on_action_game_solve()
 {
-    m_Winner = GAME_SOLUTION;
+    m_Winner = END_CONDITION_SOLUTION;
     end_game();
 }
 

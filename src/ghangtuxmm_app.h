@@ -24,9 +24,9 @@ public:
 
     enum EndCondition
     {
-        GAME_WON,     /*Player won*/
-        GAME_LOST,    /*Player lost*/
-        GAME_SOLUTION /*Player asked for the solution*/
+        END_CONDITION_WON,     /*Player won*/
+        END_CONDITION_LOST,    /*Player lost*/
+        END_CONDITION_SOLUTION /*Player asked for the solution*/
     };
 
 private:
