@@ -1,7 +1,7 @@
 #include "ghangtuxmm_app.h"
 #include <iostream>
 
-static const int TUX_IMAGES = 8;
+static const int TUX_IMAGES = 7;
 
 //FIX!!: Divide this code in multiple functions
 GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refBuilder)
@@ -138,6 +138,7 @@ void GHangtuxmmApp::replace_characters(Glib::ustring& guessSentence,
                                                 const Glib::ustring& validChars,
                                                 char substitutor)
 {
+    displaySentence = "";
     for(Glib::ustring::iterator i=guessSentence.begin(); i!= -- guessSentence.end(); ++i)
     {
         bool is_valid_char = false;
@@ -185,14 +186,14 @@ void GHangtuxmmApp::check_letter_in_sentence(Glib::ustring label)
 {
     if (m_GuessSentence.find(label) != Glib::ustring::npos)
     {
-        if (m_AssertedChars.length() < m_DisplaySentence.length())
-        {
-            m_AssertedChars.push_back(label[0]);
-            m_DisplaySentence = "";
-            replace_characters(m_GuessSentence, m_DisplaySentence, m_AssertedChars, '_');
-            m_pDisplayLabel->set_text(m_DisplaySentence);
-        }
-        else
+        m_AssertedChars.push_back(label[0]);
+        replace_characters(m_GuessSentence, m_DisplaySentence, m_AssertedChars, '_');
+        m_pDisplayLabel->set_text(m_DisplaySentence);
+
+        std::cout << "Sentence = " << m_GuessSentence << std::endl;
+        std::cout << "Display = " << m_DisplaySentence << std::endl;
+        //FIX: This comparation is not working??
+        if (m_DisplaySentence.compare(m_GuessSentence) == 0)
         {
             m_Winner = GAME_WON;
             end_game();
@@ -225,12 +226,12 @@ Glib::ustring GHangtuxmmApp::get_sentence_from_file(const std::string& file)
     {
         //Open file.
         Glib::RefPtr<Glib::IOChannel> iochannel = Glib::IOChannel::create_from_file(file_path,"r");
-        //Read a sentence from the file. 
-        //FIX: Still need to find a GOOD way to get a random number.
+
+        //Read a random sentence from the file. 
         Glib::Rand num;
         int n_rand = num.get_int_range(1,20);
-
         int i=0;
+
         while (i != n_rand)
         {
             iochannel->read_line(sentence);
@@ -270,10 +271,16 @@ void GHangtuxmmApp::start_game()
     //Search for a random sentence to guess.
     m_GuessSentence = get_sentence_from_file(theme_file);
 
-    //Format the m_DisplaySentence and display it.
-    //m_DisplaySentence = "";
+    //Initialize m_DisplaySentence and display it.
+    m_DisplaySentence = "";
     replace_characters(m_GuessSentence, m_DisplaySentence, "", '_');
     m_pDisplayLabel->set_text(m_DisplaySentence);
+
+    //Initialize asserted characters.
+    m_AssertedChars = "";
+
+    //Initialize the image's number.
+    m_NImage = 0;
 
     //Display title label.
     //FIX: Format this text into a more visible one.
@@ -302,12 +309,15 @@ void GHangtuxmmApp::end_game()
     switch(m_Winner)
     {
       case(GAME_WON):
+          m_pImage->set("../data/images/Tux8.png");
           //Statusbar and image.
           break;
       case(GAME_LOST):
+          m_pImage->set("../data/images/Tux7.png");
           //Statusbar and image.
           break;
       case(GAME_SOLUTION):
+          m_pImage->set("../data/images/Tux7.png");
           //Statusbar and image.
           break;
       default:
