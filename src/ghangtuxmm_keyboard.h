@@ -43,7 +43,7 @@ public:
 
 private:
     void on_button_clicked(Gtk::Button* button);
-    void on_set_sensitive(Gtk::Widget& button, const bool& sensitive);
+    void on_foreach_set_sensitive(Gtk::Widget& button, const bool& sensitive);
 
     T_signal_clicked m_on_button_clicked;
 };
