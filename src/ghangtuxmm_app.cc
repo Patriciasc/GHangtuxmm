@@ -142,7 +142,7 @@ void GHangtuxmmApp::replace_characters(Glib::ustring& guessSentence,
                                                 char substitutor)
 {
     displaySentence = "";
-    for(Glib::ustring::iterator i=guessSentence.begin(); i!= -- guessSentence.end(); ++i)
+    for(Glib::ustring::iterator i=guessSentence.begin(); i!= guessSentence.end(); ++i)
     {
         bool is_valid_char = false;
         //Look if the guess char is a valid char.
@@ -194,12 +194,8 @@ void GHangtuxmmApp::check_letter_in_sentence(Glib::ustring label)
         replace_characters(m_GuessSentence, m_DisplaySentence, m_AssertedChars, '_');
         m_pDisplayLabel->set_text(m_DisplaySentence);
 
-        std::cout << "Sentence = " << m_GuessSentence << std::endl;
-        std::cout << "Display = " << m_DisplaySentence << std::endl;
-        //FIX: This comparation is not working??
         if (m_DisplaySentence.compare(m_GuessSentence) == 0)
         {
-            std::cout << "EQUAL " << std::endl;
             m_Winner = END_CONDITION_WON;
             end_game();
         }
@@ -219,7 +215,7 @@ void GHangtuxmmApp::check_letter_in_sentence(Glib::ustring label)
     }
 }
 
-//Get a random sentece to guess from the given file
+//Get a random sentece to guess from the given file.
 Glib::ustring GHangtuxmmApp::get_sentence_from_file(const std::string& file)
 {
     Glib::ustring sentence;
@@ -245,6 +241,8 @@ Glib::ustring GHangtuxmmApp::get_sentence_from_file(const std::string& file)
     {
         std::cerr << "FileError: "<< ex.what() << std::endl;
     }
+
+    Glib::ustring::iterator end_of_line = sentence.erase(--sentence.end());
     return sentence;
 }
 
