@@ -52,7 +52,20 @@ main_LDADD = $(DEP_LIBS)
 # ================
 
 imagesdir = $(pkgdatadir)/images
-dist_images_DATA = data/images/Tux0.png
+dist_images_DATA = data/images/Tux0.png \
+				   data/images/Tux1.png \
+				   data/images/Tux2.png \
+				   data/images/Tux3.png \
+				   data/images/Tux4.png \
+				   data/images/Tux5.png \
+				   data/images/Tux6.png \
+				   data/images/Tux7.png \
+				   data/images/Tux8.png
+
+themesdir = $(pkgdatadir)/themes
+dist_themes_DATA = data/themes/THEME_FILMS.txt \
+				   data/themes/THEME_PERSONS.txt \
+				   data/themes/THEME_OBJECTS.txt
 
 uidir = $(pkgdatadir)/ui
 dist_ui_DATA = data/ui/ghangtuxmm.glade

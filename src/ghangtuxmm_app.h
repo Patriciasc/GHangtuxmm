@@ -14,6 +14,7 @@ public:
     Glib::ustring get_sentence_from_file( const std::string &file);
     void start_game();
     void end_game();
+    std::string get_system_file(const Glib::ustring& filename);
 
     enum GameTheme
     {

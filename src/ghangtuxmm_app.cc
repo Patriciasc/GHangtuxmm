@@ -6,8 +6,6 @@ static const int TUX_IMAGES = 7;
 static const int MIN_RAND = 1;
 static const int MAX_RAND = 41;
 
-static std::string get_system_file(const Glib::ustring& filename);
-
 //FIX!!: Divide this code in multiple functions
 GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refBuilder)
 : Gtk::Window(cobject),
@@ -210,7 +208,7 @@ void GHangtuxmmApp::check_letter_in_sentence(Glib::ustring label)
     {
         if(m_NImage < TUX_IMAGES)
         {
-            m_pImage->set("../data/images/Tux"+( Glib::ustring::compose("%1",m_NImage))+".png");
+            m_pImage->set(get_system_file("images/Tux"+( Glib::ustring::compose("%1",m_NImage))+".png"));
             ++m_NImage;
         }
         else
@@ -224,14 +222,12 @@ void GHangtuxmmApp::check_letter_in_sentence(Glib::ustring label)
 //Get a random sentece to guess from the given file
 Glib::ustring GHangtuxmmApp::get_sentence_from_file(const std::string& file)
 {
-    //FIX: Need to create a function for looking for the correct
-    //path and make it work in WIN too.
-    const std::string file_path = "../data/themes/" + file;
     Glib::ustring sentence;
 
     try
     {
         //Open file.
+        const std::string file_path = get_system_file("themes/"+file);
         Glib::RefPtr<Glib::IOChannel> iochannel = Glib::IOChannel::create_from_file(file_path,"r");
 
         //Read a random sentence from the file. 
@@ -301,13 +297,8 @@ void GHangtuxmmApp::start_game()
     //TODO
 
     //Set inicial image.
-    m_pImage->set("../data/images/Tux0.png");
+    m_pImage->set(get_system_file("images/Tux0.png"));
     ++m_NImage;
-
-    //XXX:test
-    Glib::ustring arch= "ui/ghangtuxmm.glade";
-    std::string file = get_system_file(arch);
-    std::cout << "data dir = " << file << std::endl;
 }
 
 //Finishes the game.
@@ -323,15 +314,15 @@ void GHangtuxmmApp::end_game()
     switch(m_Winner)
     {
       case(END_CONDITION_WON):
-          m_pImage->set("../data/images/Tux8.png");
+          m_pImage->set(get_system_file("images/Tux8.png"));
           //Statusbar.
           break;
       case(END_CONDITION_LOST):
-          m_pImage->set("../data/images/Tux7.png");
+          m_pImage->set(get_system_file("images/Tux7.png"));
           //Statusbar.
           break;
       case(END_CONDITION_SOLUTION):
-          m_pImage->set("../data/images/Tux7.png");
+          m_pImage->set(get_system_file("images/Tux7.png"));
           //Statusbar.
           break;
       default:
@@ -342,26 +333,25 @@ void GHangtuxmmApp::end_game()
 }
 
 //Search system directories for the given filename.
-static std::string get_system_file(const Glib::ustring& filename)
+std::string GHangtuxmmApp::get_system_file(const Glib::ustring& filename)
 {
     std::string pathname = "";
-    Glib::ustring separator = "/";
-    const gchar* const* data_dirs;
-    std::vector<std::string> system_data_dirs;
+    std::string build_path = "";
+    const gchar* const* system_data_dirs;
+    std::vector<std::string> vec_system_data_dirs;
 
-    for(data_dirs=g_get_system_data_dirs(); *data_dirs!=NULL; data_dirs++)
+    for(system_data_dirs=g_get_system_data_dirs(); *system_data_dirs!=NULL; system_data_dirs++)
     {
-        system_data_dirs.push_back(*data_dirs);
-        for(std::vector<std::string>::iterator i=system_data_dirs.begin(); i!=system_data_dirs.end(); ++i)
-        {
-            //use Glib::build_filename here.
-            *i+= PACKAGE_NAME+separator+filename;
-            if(Glib::file_test(*i,Glib::FILE_TEST_EXISTS))
+            vec_system_data_dirs.push_back(*system_data_dirs);
+            vec_system_data_dirs.push_back(PACKAGE_NAME);
+            vec_system_data_dirs.push_back(filename);
+            build_path = Glib::build_filename(vec_system_data_dirs);
+
+            if(Glib::file_test(build_path,Glib::FILE_TEST_EXISTS))
             {
-                pathname = *i;
+                pathname = build_path;
                 break;
             }
-        }
     }
     return pathname;
 }

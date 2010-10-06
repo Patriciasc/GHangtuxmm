@@ -36,12 +36,13 @@ main (int argc,
 {
     Gtk::Main kit(argc, argv);
 
-    //FIX: I want to encapsulate all this in the constructor
+    GHangtuxmmApp *GHapp = 0;
+
     //Load the Glade file and instiate its widgets.
     Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create(); 
     try
     {
-        refBuilder->add_from_file("../data/ui/ghangtuxmm.glade");
+        refBuilder->add_from_file(GHapp->get_system_file("ui/ghangtuxmm.glade"));
     }
     catch(const Glib::FileError& ex)
     {
@@ -52,7 +53,6 @@ main (int argc,
         std::cerr << "BuilderError: " << ex.what() << std::endl;
     }
 
-    GHangtuxmmApp *GHapp = 0;
     refBuilder->get_widget_derived("main_window", GHapp);
     GHapp->show();
 
