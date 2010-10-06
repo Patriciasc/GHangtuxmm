@@ -43,6 +43,7 @@ private:
     Gtk::Label* m_pTitleLabel;
     GHangtuxmmKeyboard m_Keyboard;
     Gtk::Statusbar* m_pStatusbar;
+    guint m_ContextStatusbar;
     Glib::ustring m_GuessSentence;
     Glib::ustring m_DisplaySentence;
     Glib::ustring m_AssertedChars;

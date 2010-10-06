@@ -14,6 +14,7 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
   m_pDisplayLabel(0),
   m_pTitleLabel(0),
   m_pStatusbar(0),
+  m_ContextStatusbar(0),
   m_GuessSentence(""),
   m_DisplaySentence(""),
   m_AssertedChars(""),
@@ -252,20 +253,26 @@ void GHangtuxmmApp::start_game()
     Glib::ustring theme_file;
     Glib::ustring theme_label;
 
+    //Set Statusbar context.
+    m_ContextStatusbar = m_pStatusbar->get_context_id("GHangtuxmm Statusbar");
+
     //Choose the theme file.
     switch (m_GameTheme)
     {
       case THEME_FILMS:
           theme_file = "THEME_FILMS.txt";
           theme_label = "FILM";
+          m_pStatusbar->push("Playing theme: Films", m_ContextStatusbar);
           break;
       case THEME_PERSONS:
           theme_file = "THEME_PERSONS.txt";
           theme_label = "PERSON";
+          m_pStatusbar->push("Playing theme: Persons", m_ContextStatusbar);
           break;
       case THEME_OBJECTS:
           theme_file = "THEME_OBJECTS.txt";
           theme_label = "OBJECT";
+          m_pStatusbar->push("Playing theme: Objects", m_ContextStatusbar);
           break;
       default:
           std::cout << "No theme file found under the given name" << std::endl;
@@ -291,9 +298,6 @@ void GHangtuxmmApp::start_game()
     //Set Keyboard to sensitive.
     m_Keyboard.set_sensitive(true);
 
-    //Set Statusbar.
-    //TODO
-
     //Set inicial image.
     m_pImage->set(get_system_file("images/Tux0.png"));
     ++m_NImage;
@@ -309,25 +313,24 @@ void GHangtuxmmApp::end_game()
     //Set keyboard insensitive.
     m_Keyboard.set_sensitive(false);
     //Set other parameters depending on the way the game finishes.
+
     switch(m_Winner)
     {
       case(END_CONDITION_WON):
           m_pImage->set(get_system_file("images/Tux8.png"));
-          //Statusbar.
+          m_pStatusbar->push("Congratulations!", m_ContextStatusbar);
           break;
       case(END_CONDITION_LOST):
           m_pImage->set(get_system_file("images/Tux7.png"));
-          //Statusbar.
+          m_pStatusbar->push("End of game. Try again!", m_ContextStatusbar);
           break;
       case(END_CONDITION_SOLUTION):
           m_pImage->set(get_system_file("images/Tux7.png"));
-          //Statusbar.
+          m_pStatusbar->push("Solution", m_ContextStatusbar);
           break;
       default:
           std::cout << "m_Winner Error" << std::endl;
     }
-    //Set Statusbar.
-    //TODO
 }
 
 //Search system directories for the given filename.
