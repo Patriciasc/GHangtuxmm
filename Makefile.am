@@ -62,6 +62,10 @@ dist_images_DATA = data/images/Tux0.png \
 				   data/images/Tux7.png \
 				   data/images/Tux8.png
 
+iconsdir = $(pkgdatadir)/icons/hicolor
+appicon48dir = $(iconsdir)/48x48/apps
+dist_appicon48_DATA = data/icons/48x48/ghangtuxmm.png
+
 themesdir = $(pkgdatadir)/themes
 dist_themes_DATA = data/themes/THEME_FILMS.txt \
 				   data/themes/THEME_PERSONS.txt \
