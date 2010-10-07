@@ -37,15 +37,15 @@ ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 # -- TARGET LIST --
 # =================
 
-bin_PROGRAMS = main
-main_SOURCES = src/main.cc \
+bin_PROGRAMS = ghangtuxmm
+ghangtuxmm_SOURCES = src/ghangtuxmm.cc \
 			   src/ghangtuxmm_app.h \
 			   src/ghangtuxmm_app.cc \
 			   src/ghangtuxmm_keyboard.h \
 			   src/ghangtuxmm_keyboard.cc 
 
-main_CPPFLAGS = $(DEP_CFLAGS) -DPROGRAMNAME_LOCALEDIR=\"${PROGRAMNAME_LOCALEDIR}\" $(GHANGTUXMM_WARNING_FLAGS)
-main_LDADD = $(DEP_LIBS)
+ghangtuxmm_CPPFLAGS = $(DEP_CFLAGS) -DPROGRAMNAME_LOCALEDIR=\"${PROGRAMNAME_LOCALEDIR}\" $(GHANGTUXMM_WARNING_FLAGS)
+ghangtuxmm_LDADD = $(DEP_LIBS)
 
 # ================
 # -- FILE LISTS --
@@ -64,9 +64,9 @@ dist_images_DATA = data/images/Tux0.png \
 
 iconsdir = $(pkgdatadir)/icons/hicolor
 appicon48dir = $(iconsdir)/48x48/apps
-dist_appicon48_DATA = data/icons/48x48/main.png
+dist_appicon48_DATA = data/icons/48x48/ghangtuxmm.png
 appicon200dir = $(iconsdir)/200x200/apps
-dist_appicon200_DATA = data/icons/200x200/main.png
+dist_appicon200_DATA = data/icons/200x200/ghangtuxmm.png
 
 themesdir = $(pkgdatadir)/themes
 dist_themes_DATA = data/themes/THEME_FILMS.txt \
@@ -77,7 +77,7 @@ uidir = $(pkgdatadir)/ui
 dist_ui_DATA = data/ui/ghangtuxmm.glade
 
 desktopdir = $(datadir)/applications
-desktop_in_files = main.desktop.in
+desktop_in_files = ghangtuxmm.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 	@INTLTOOL_DESKTOP_RULE@
 

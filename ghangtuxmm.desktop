@@ -5,5 +5,5 @@ Version=1.0
 Name=GHangtuxmm
 GenericName=GHangtuxmm game
 Comment=A variation of the Hangman game.
-Icon=main
-Exec=main
+Icon=ghangtuxmm
+Exec=ghangtuxmm

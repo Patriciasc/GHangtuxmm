@@ -5,8 +5,8 @@ config.*
 configure
 *tar.gz
 INSTALL
-main
 Makefile
+ghangtuxmm
 Makefile.in
 src/config*
 src/*.o

@@ -396,8 +396,8 @@ void GHangtuxmmApp::on_action_about_dialog()
     std::vector<Glib::ustring> artists;
     artists.push_back("Tux images Copyright Wikimedia:\n \
                       http://commons.wikimedia.org/wiki/File:Tux-G2.png. Jan Vansteenkiste.");
-    aboutDialog.set_program_name("GHangtuxmm.");
-    aboutDialog.set_version(_("Version 0.1"));
+    aboutDialog.set_program_name(PACKAGE_NAME);
+    aboutDialog.set_version(PACKAGE_VERSION);
     aboutDialog.set_copyright("Copyright (C) 2010 Openismus GmbH.");
     aboutDialog.set_comments(_("GHangtuxmm is a variation of the popular Hangman game."));
     aboutDialog.set_license("Free: Look for the right text");
@@ -407,7 +407,7 @@ void GHangtuxmmApp::on_action_about_dialog()
     aboutDialog.set_documenters(authors);
     aboutDialog.set_artists(artists);
     //FIX: Logo is not showing!
-    aboutDialog.set_logo_icon_name(get_system_file("icons/hicolor/48x48/apps/ghangtuxmm.png"));
+    aboutDialog.set_logo_icon_name(get_system_file("icons/hicolor/200x200/apps/ghangtuxmm.png"));
 
     aboutDialog.run();
 }
