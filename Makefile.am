@@ -65,6 +65,8 @@ dist_images_DATA = data/images/Tux0.png \
 iconsdir = $(pkgdatadir)/icons/hicolor
 appicon48dir = $(iconsdir)/48x48/apps
 dist_appicon48_DATA = data/icons/48x48/ghangtuxmm.png
+appicon200dir = $(iconsdir)/200x200/apps
+dist_appicon200_DATA = data/icons/200x200/ghangtuxmm.png
 
 themesdir = $(pkgdatadir)/themes
 dist_themes_DATA = data/themes/THEME_FILMS.txt \
@@ -73,5 +75,9 @@ dist_themes_DATA = data/themes/THEME_FILMS.txt \
 
 uidir = $(pkgdatadir)/ui
 dist_ui_DATA = data/ui/ghangtuxmm.glade
+
+desktopdir = $(datadir)/applications
+desktop_in_files = ghangtuxmm.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
 dist_noinst_SCRIPTS = autogen.sh
