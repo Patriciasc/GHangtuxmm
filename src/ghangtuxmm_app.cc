@@ -7,6 +7,8 @@ static const int TUX_IMAGES = 7;
 static const int MIN_RAND = 1;
 static const int MAX_RAND = 41;
 
+Glib::ustring format_text_with_markup(Glib::ustring text, int type);
+
 //FIX!!: Divide this code in multiple functions
 GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refBuilder)
 : Gtk::Window(cobject),
@@ -135,6 +137,10 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
     start_game();
 }
 
+GHangtuxmmApp::~GHangtuxmmApp()
+{
+}
+
 //For each character in guessSentence, if the character is not in valid_chars,
 //replaces the character with substitutor. Modifies displaySentence.
 //This function reproduces the behaviour of g_strcanon.
@@ -181,9 +187,22 @@ void GHangtuxmmApp::replace_characters(Glib::ustring& guessSentence,
     }
 }
 
-
-GHangtuxmmApp::~GHangtuxmmApp()
+Glib::ustring format_text_with_markup(Glib::ustring text,
+                                      int type)
 {
+    Glib::ustring markup;
+    switch(type)
+    {
+      case(0):  //Displayed sentence label
+          markup = text.compose("<span size=\"large\" font_weight=\"ultrabold\">%1</span>",text);
+          break;
+      case(1):  //Title label.
+          markup = text.compose("<span size=\"small\">%1</span>",text);
+          break;
+      default:
+          std::cout << "Non existent format type." << std::endl;
+    }
+    return markup;
 }
 
 //Looks for a the player's given letter in the guess sentence.
@@ -194,7 +213,7 @@ void GHangtuxmmApp::check_letter_in_sentence(Glib::ustring label)
     {
         m_AssertedChars.push_back(label[0]);
         replace_characters(m_GuessSentence, m_DisplaySentence, m_AssertedChars, '_');
-        m_pDisplayLabel->set_text(m_DisplaySentence);
+        m_pDisplayLabel->set_markup(format_text_with_markup(m_DisplaySentence,0));
 
         if (m_DisplaySentence.compare(m_GuessSentence) == 0)
         {
@@ -284,7 +303,7 @@ void GHangtuxmmApp::start_game()
     //Initialize m_DisplaySentence and display it.
     m_DisplaySentence = "";
     replace_characters(m_GuessSentence, m_DisplaySentence, "", '_');
-    m_pDisplayLabel->set_text(m_DisplaySentence);
+    m_pDisplayLabel->set_markup(format_text_with_markup(m_DisplaySentence, 0));
 
     //Initialize asserted characters.
     m_AssertedChars = "";
@@ -294,7 +313,7 @@ void GHangtuxmmApp::start_game()
 
     //Display title label.
     //FIX: Format this text into a more visible one.
-    m_pTitleLabel->set_text(_("Guess the ")+theme_label);
+    m_pTitleLabel->set_markup(format_text_with_markup((_("Guess the ")+theme_label),1));
 
     //Set Keyboard to sensitive.
     m_Keyboard.set_sensitive(true);
@@ -308,7 +327,7 @@ void GHangtuxmmApp::start_game()
 void GHangtuxmmApp::end_game()
 {
     //Set display label.
-    m_pDisplayLabel->set_text(m_GuessSentence);
+    m_pDisplayLabel->set_markup(format_text_with_markup(m_GuessSentence,0));
     //Set title label.
     m_pTitleLabel->set_text("");
     //Set keyboard insensitive.
