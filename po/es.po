@@ -1,0 +1,119 @@
+#Spanish translation for GHangtuxmm.
+# Copyright (C) 2010.
+# This file is distributed under the same license as the Ghangtuxmm package.
+# Patricia Santana Cruz <patriciasc@openismus.com>, 2010.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-10-07 12:33+0200\n"
+"PO-Revision-Date: 2010-10-07\n"
+"Last-Translator: Patricia Santana Cruz <patriciasc@openismus.com>\n"
+"Language-Team: SPANISH <patriciasc@openismus.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Game menu.
+#: ../src/ghangtuxmm_app.cc:35
+msgid "_Game"
+msgstr "Juego"
+
+#: ../src/ghangtuxmm_app.cc:36
+msgid "_New"
+msgstr "Nuevo"
+
+#: ../src/ghangtuxmm_app.cc:38
+msgid "_Solve"
+msgstr "Resolver"
+
+#: ../src/ghangtuxmm_app.cc:40
+msgid "_Quit"
+msgstr "Salir"
+
+#. Settings menu.
+#: ../src/ghangtuxmm_app.cc:44
+msgid "_Settings"
+msgstr "Opciones"
+
+#: ../src/ghangtuxmm_app.cc:45
+msgid "_Themes"
+msgstr "Temas"
+
+#: ../src/ghangtuxmm_app.cc:48
+msgid "_Films"
+msgstr "Películas"
+
+#: ../src/ghangtuxmm_app.cc:51
+msgid "_Persons"
+msgstr "Personas"
+
+#: ../src/ghangtuxmm_app.cc:54
+msgid "_Objects"
+msgstr "Objetos"
+
+#. Help menu.
+#: ../src/ghangtuxmm_app.cc:59
+msgid "_Help"
+msgstr "Ayuda"
+
+#: ../src/ghangtuxmm_app.cc:60
+msgid "_About"
+msgstr "Sobre GHangtuxmm"
+
+#: ../src/ghangtuxmm_app.cc:265
+msgid "FILM"
+msgstr " la PELÍCULA"
+
+#: ../src/ghangtuxmm_app.cc:266
+msgid "Playing theme: Films"
+msgstr "Tema del juego: Películas."
+
+#: ../src/ghangtuxmm_app.cc:270
+msgid "PERSON"
+msgstr " el PERSONAJE"
+
+#: ../src/ghangtuxmm_app.cc:271
+msgid "Playing theme: Persons"
+msgstr "Tema del juego: Personajes."
+
+#: ../src/ghangtuxmm_app.cc:275
+msgid "OBJECT"
+msgstr " el OBJETO"
+
+#: ../src/ghangtuxmm_app.cc:276
+msgid "Playing theme: Objects"
+msgstr "Tema del juego: Objetos."
+
+#. Display title label.
+#. FIX: Format this text into a more visible one.
+#: ../src/ghangtuxmm_app.cc:297
+msgid "Guess the "
+msgstr "Adivina"
+
+#: ../src/ghangtuxmm_app.cc:322
+msgid "Congratulations!"
+msgstr "Enhorabuena!"
+
+#: ../src/ghangtuxmm_app.cc:326
+msgid "End of game. Try again!"
+msgstr "Fin del juego. Inténtalo de nuevo!"
+
+#: ../src/ghangtuxmm_app.cc:330
+msgid "Solution"
+msgstr "Solución"
+
+#: ../src/ghangtuxmm_app.cc:400
+msgid "Version 0.1"
+msgstr "Versión 0.1"
+
+#: ../src/ghangtuxmm_app.cc:402
+msgid "GHangtuxmm is a variation of the popular Hangman game."
+msgstr "GHangtuxmm es una variación del popular juego del ahorcado."
+
+#: ../data/ui/ghangtuxmm.glade.h:1
+msgid "Choose a theme from the Game's menu"
+msgstr "Elije un tema en el menú Juego."

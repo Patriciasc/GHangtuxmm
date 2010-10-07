@@ -28,6 +28,8 @@
 #include "ghangtuxmm_app.h"
 #include <gtkmm/main.h>
 #include <glibmm.h>
+#include <glibmm/i18n.h>
+#include "config.h"
 #include <iostream>
 
 int
@@ -35,6 +37,11 @@ main (int argc,
       char *argv[])
 {
     Gtk::Main kit(argc, argv);
+
+    //Prepare internationalization.
+    bindtextdomain(GETTEXT_PACKAGE, PROGRAMNAME_LOCALEDIR);
+    bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
+    textdomain(GETTEXT_PACKAGE);
 
     GHangtuxmmApp *GHapp = 0;
 

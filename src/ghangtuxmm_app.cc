@@ -1,5 +1,6 @@
 #include "ghangtuxmm_app.h"
 #include <iostream>
+#include <glibmm/i18n.h>
 #include "config.h"
 
 static const int TUX_IMAGES = 7;
@@ -31,32 +32,32 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
     Glib::RefPtr<Gtk::ActionGroup> refActionGroup = Gtk::ActionGroup::create();
 
     //Game menu.
-    refActionGroup->add( Gtk::Action::create("MenuGame", "_Game"));
-    refActionGroup->add( Gtk::Action::create("MenuGameNew",Gtk::Stock::NEW, "_New"),
+    refActionGroup->add( Gtk::Action::create("MenuGame", _("_Game")));
+    refActionGroup->add( Gtk::Action::create("MenuGameNew",Gtk::Stock::NEW, _("_New")),
       sigc::mem_fun(*this, &GHangtuxmmApp::on_action_game_new));
-    refActionGroup->add( Gtk::Action::create("MenuGameSolve", Gtk::Stock::APPLY, "_Solve"),
+    refActionGroup->add( Gtk::Action::create("MenuGameSolve", Gtk::Stock::APPLY, _("_Solve")),
       sigc::mem_fun(*this, &GHangtuxmmApp::on_action_game_solve));
-    refActionGroup->add( Gtk::Action::create("MenuGameQuit", Gtk::Stock::QUIT, "_Quit"),
+    refActionGroup->add( Gtk::Action::create("MenuGameQuit", Gtk::Stock::QUIT, _("_Quit")),
       sigc::mem_fun(*this, &GHangtuxmmApp::on_action_game_quit));
 
     //Settings menu.
-    refActionGroup->add( Gtk::Action::create("MenuSettings", "_Settings"));
-    refActionGroup->add( Gtk::Action::create("MenuSettingsThemes", "_Themes"));
+    refActionGroup->add( Gtk::Action::create("MenuSettings", _("_Settings")));
+    refActionGroup->add( Gtk::Action::create("MenuSettingsThemes", _("_Themes")));
 
     Gtk::RadioAction::Group group_theme;
-    m_refFilms = Gtk::RadioAction::create(group_theme, "MenuThemesFilms", "_Films");
+    m_refFilms = Gtk::RadioAction::create(group_theme, "MenuThemesFilms", _("_Films"));
     refActionGroup->add(m_refFilms,
       sigc::mem_fun(*this, &GHangtuxmmApp::on_action_game_new));
-    m_refPersons = Gtk::RadioAction::create(group_theme, "MenuThemesPersons", "_Persons");
+    m_refPersons = Gtk::RadioAction::create(group_theme, "MenuThemesPersons", _("_Persons"));
     refActionGroup->add(m_refPersons,
       sigc::mem_fun(*this, &GHangtuxmmApp::on_action_game_new));
-    m_refObjects = Gtk::RadioAction::create(group_theme, "MenuThemesObjects", "_Objects");
+    m_refObjects = Gtk::RadioAction::create(group_theme, "MenuThemesObjects", _("_Objects"));
     refActionGroup->add(m_refObjects,
       sigc::mem_fun(*this, &GHangtuxmmApp::on_action_game_new));
 
     //Help menu.
-    refActionGroup->add( Gtk::Action::create("MenuHelp", "_Help"));
-    refActionGroup->add( Gtk::Action::create("MenuHelpAbout", "_About"),
+    refActionGroup->add( Gtk::Action::create("MenuHelp", _("_Help")));
+    refActionGroup->add( Gtk::Action::create("MenuHelpAbout", _("_About")),
       sigc::mem_fun(*this, &GHangtuxmmApp::on_action_about_dialog));
 
     //Create UIManager and add action group.
@@ -261,18 +262,18 @@ void GHangtuxmmApp::start_game()
     {
       case THEME_FILMS:
           theme_file = "THEME_FILMS.txt";
-          theme_label = "FILM";
-          m_pStatusbar->push("Playing theme: Films", m_ContextStatusbar);
+          theme_label = _("FILM");
+          m_pStatusbar->push(_("Playing theme: Films"), m_ContextStatusbar);
           break;
       case THEME_PERSONS:
           theme_file = "THEME_PERSONS.txt";
-          theme_label = "PERSON";
-          m_pStatusbar->push("Playing theme: Persons", m_ContextStatusbar);
+          theme_label = _("PERSON");
+          m_pStatusbar->push(_("Playing theme: Persons"), m_ContextStatusbar);
           break;
       case THEME_OBJECTS:
           theme_file = "THEME_OBJECTS.txt";
-          theme_label = "OBJECT";
-          m_pStatusbar->push("Playing theme: Objects", m_ContextStatusbar);
+          theme_label = _("OBJECT");
+          m_pStatusbar->push(_("Playing theme: Objects"), m_ContextStatusbar);
           break;
       default:
           std::cout << "No theme file found under the given name" << std::endl;
@@ -293,7 +294,7 @@ void GHangtuxmmApp::start_game()
 
     //Display title label.
     //FIX: Format this text into a more visible one.
-    m_pTitleLabel->set_text("Guess the "+theme_label);
+    m_pTitleLabel->set_text(_("Guess the ")+theme_label);
 
     //Set Keyboard to sensitive.
     m_Keyboard.set_sensitive(true);
@@ -318,15 +319,15 @@ void GHangtuxmmApp::end_game()
     {
       case(END_CONDITION_WON):
           m_pImage->set(get_system_file("images/Tux8.png"));
-          m_pStatusbar->push("Congratulations!", m_ContextStatusbar);
+          m_pStatusbar->push(_("Congratulations!"), m_ContextStatusbar);
           break;
       case(END_CONDITION_LOST):
           m_pImage->set(get_system_file("images/Tux7.png"));
-          m_pStatusbar->push("End of game. Try again!", m_ContextStatusbar);
+          m_pStatusbar->push(_("End of game. Try again!"), m_ContextStatusbar);
           break;
       case(END_CONDITION_SOLUTION):
           m_pImage->set(get_system_file("images/Tux7.png"));
-          m_pStatusbar->push("Solution", m_ContextStatusbar);
+          m_pStatusbar->push(_("Solution"), m_ContextStatusbar);
           break;
       default:
           std::cout << "m_Winner Error" << std::endl;
@@ -396,9 +397,9 @@ void GHangtuxmmApp::on_action_about_dialog()
     artists.push_back("Tux images Copyright Wikimedia:\n \
                       http://commons.wikimedia.org/wiki/File:Tux-G2.png. Jan Vansteenkiste.");
     aboutDialog.set_program_name("GHangtuxmm.");
-    aboutDialog.set_version("Version 0.1");
+    aboutDialog.set_version(_("Version 0.1"));
     aboutDialog.set_copyright("Copyright (C) 2010 Openismus GmbH.");
-    aboutDialog.set_comments("GHangtuxmm is a variation of the popular Hangman game.");
+    aboutDialog.set_comments(_("GHangtuxmm is a variation of the popular Hangman game."));
     aboutDialog.set_license("Free: Look for the right text");
     aboutDialog.set_website("http://github.com//Patriciasc/GHantuxmm");
     aboutDialog.set_translator_credits("Patricia Santana Cruz");

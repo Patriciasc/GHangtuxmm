@@ -27,20 +27,30 @@ AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([1.11 -Wall -Werror no-define subdir-objects])
 AC_CONFIG_HEADERS([src/config.h])
 
+# Start Intltools
+IT_PROG_INTLTOOL([0.41])
+
+AC_SUBST([GETTEXT_PACKAGE], [$PACKAGE_NAME])
+AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"],
+                   [The domain to use with gettext])
+AM_GLIB_GNU_GETTEXT
+
+AC_SUBST([PROGRAMNAME_LOCALEDIR], [${datadir}/locale])
+#End Intltools
+
 AC_PROG_CXX
 PKG_CHECK_MODULES([DEP], [gtk+-2.0 >= 2.20
                           gtkmm-2.4 >= 2.20
                           gio-2.0  >= 2.24 
                           glib-2.0 >= 2.24 
                           glibmm-2.4 >= 2.24
-                          pangomm-1.4 >= 2.26
-                          gmodule-export-2.0])
+                          pangomm-1.4 >= 2.26])
 
 AC_LANG([C++])
-DK_ARG_ENABLE_WARNINGS([GHANGTUX_WARNING_FLAGS],
+DK_ARG_ENABLE_WARNINGS([GHANGTUXMM_WARNING_FLAGS],
                        [-Wall -w1],
                        [-pedantic -Wall -Wextra -w1],
                        [GTK GTKMM GDK GDKMM GDK_PIXBUF G GLIBMM PANGOMM])
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile po/Makefile.in])
 AC_OUTPUT

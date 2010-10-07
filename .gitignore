@@ -12,3 +12,10 @@ src/config*
 src/*.o
 src/.*
 src/stamp*
+intltool-extract.in
+intltool-merge.in
+intltool-update.in
+po/es.gmo
+po/Makefile*
+po/POTFILES
+po/stamp-it
