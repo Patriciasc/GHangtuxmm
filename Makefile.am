@@ -77,7 +77,7 @@ uidir = $(pkgdatadir)/ui
 dist_ui_DATA = data/ui/ghangtuxmm.glade
 
 desktopdir = $(datadir)/applications
-desktop_in_files = ghangtuxmm.desktop.in
+desktop_in_files = ghangtuxmm.desktop
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 	@INTLTOOL_DESKTOP_RULE@
 
@@ -90,6 +90,7 @@ DISTCLEANFILES = intltool-extract \
 				 intltool-update \
 				 po./intltool-merge-cache
 
+dist_noinst_DATA = $(desktop_in_files)
 dist_noinst_SCRIPTS = autogen.sh \
 					  $(INTLTOOL_FILES)
 
