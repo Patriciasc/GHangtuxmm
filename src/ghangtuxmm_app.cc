@@ -225,7 +225,7 @@ void GHangtuxmmApp::format_text_with_markup(Glib::ustring& text,
           text = text.compose("<span size=\"small\">%1</span>",text);
           break;
       default:
-          std::cout << "Non existent format type." << std::endl;
+          g_critical("Non existent format type.");
     }
 }
 
@@ -321,7 +321,7 @@ void GHangtuxmmApp::start_game()
           m_pStatusbar->push(_("Playing theme: Objects"), m_ContextStatusbar);
           break;
       default:
-          std::cout << "No theme file found under the given name" << std::endl;
+          g_critical("No theme file found under the given name");
     }
     //Search for a random sentence to guess.
     m_GuessSentence = get_sentence_from_file(theme_file);
@@ -380,7 +380,7 @@ void GHangtuxmmApp::end_game()
           m_pStatusbar->push(_("Solution"), m_ContextStatusbar);
           break;
       default:
-          std::cout << "m_Winner Error" << std::endl;
+          g_critical("m_Winner Error");
     }
 }
 
