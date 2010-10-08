@@ -30,12 +30,20 @@ public:
         END_CONDITION_SOLUTION /*Player asked for the solution*/
     };
 
+    enum FormatType
+    {
+        FORMAT_TYPE_DISPLAY,
+        FORMAT_TYPE_TITLE
+    };
+
 private:
     //Action handlers
     void on_action_game_new();
     void on_action_game_solve();
     void on_action_game_quit();
     void on_action_about_dialog();
+
+    void format_text_with_markup(Glib::ustring& text, FormatType type);
 
     Glib::RefPtr<Gtk::Builder> m_refBuilder;
     Gtk::Image* m_pImage;
