@@ -210,8 +210,9 @@ void GHangtuxmmApp::check_letter_in_sentence(Glib::ustring label)
     {
         m_AssertedChars.push_back(label[0]);
         replace_characters(m_GuessSentence, m_DisplaySentence, m_AssertedChars, '_');
-        format_text_with_markup(m_DisplaySentence,FORMAT_TYPE_DISPLAY);
-        m_pDisplayLabel->set_markup(m_DisplaySentence);
+        Glib::ustring formatDisplay = m_DisplaySentence;
+        format_text_with_markup(formatDisplay,FORMAT_TYPE_DISPLAY);
+        m_pDisplayLabel->set_markup(formatDisplay);
 
         if (m_DisplaySentence.compare(m_GuessSentence) == 0)
         {
@@ -301,8 +302,9 @@ void GHangtuxmmApp::start_game()
     //Initialize m_DisplaySentence and display it.
     m_DisplaySentence = "";
     replace_characters(m_GuessSentence, m_DisplaySentence, "", '_');
-    format_text_with_markup(m_DisplaySentence, FORMAT_TYPE_DISPLAY);
-    m_pDisplayLabel->set_markup(m_DisplaySentence);
+    Glib::ustring formatDisplay = m_DisplaySentence;
+    format_text_with_markup(formatDisplay, FORMAT_TYPE_DISPLAY);
+    m_pDisplayLabel->set_markup(formatDisplay);
 
     //Initialize asserted characters.
     m_AssertedChars = "";
@@ -327,8 +329,9 @@ void GHangtuxmmApp::start_game()
 void GHangtuxmmApp::end_game()
 {
     //Set display label.
-    format_text_with_markup(m_GuessSentence,FORMAT_TYPE_DISPLAY);
-    m_pDisplayLabel->set_markup(m_GuessSentence);
+    Glib::ustring formatDisplay = m_GuessSentence;
+    format_text_with_markup(formatDisplay,FORMAT_TYPE_DISPLAY);
+    m_pDisplayLabel->set_markup(formatDisplay);
     //Set title label.
     m_pTitleLabel->set_text("");
     //Set keyboard insensitive.
