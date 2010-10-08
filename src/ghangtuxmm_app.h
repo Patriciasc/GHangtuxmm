@@ -1,5 +1,31 @@
-#ifndef GHANGTUXMM_DERIVED_WINDOW_H
-#define GHANGTUXMM_DERIVED_WINDOW_H
+/*
+ * ########################################################################
+ * # File: GHangtux - ghangtuxmm_app.h                                    #
+ * #                                                                      #
+ * # Author: Patricia Santana Cruz  <patriciasc@openismus.com>            #
+ * #                                                                      #
+ * # Copyright (C) 2010 Openismus GmbH                                    #
+ * #                                                                      #
+ * # Version: 0.1                                                         #
+ * #                                                                      #
+ * # Description: A variation of the Hangman game.                        #
+ * #                                                                      #
+ * # GHangtuxmm is free software; you can redistribute it and/or modify   #
+ * # it under the terms of the GNU General Public License as published by #
+ * # the Free Software Foundation; either version 3 of the License,       #
+ * # or (at your option) any later version.                               #
+ * #                                                                      #
+ * # GHangtuxmm  is distributed in the hope that it will be useful,       #
+ * # but WITHOUT ANY WARRANTY; without even the implied warranty of       #
+ * # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU    #
+ * # General Public License for more details.                             #
+ * #                                                                      #
+ * # You should have received a copy of the GNU General Public License    #
+ * # along with GHangtuxmm. If not, see <http://www.gnu.org/licenses/>.   #
+ * ########################################################################
+ */
+#ifndef GHANGTUXMM_APP_H
+#define GHANGTUXMM_APP_H
 
 #include <gtkmm.h>
 #include "ghangtuxmm_keyboard.h"
@@ -9,11 +35,6 @@ class GHangtuxmmApp : public Gtk::Window
 public:
     GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refBuilder);
     ~GHangtuxmmApp();
-    void check_letter_in_sentence( Glib::ustring label);
-    void replace_characters(Glib::ustring& guessSentence, Glib::ustring& displaySentence, const Glib::ustring& valid_chars, char substitutor);
-    Glib::ustring get_sentence_from_file( const std::string &file);
-    void start_game();
-    void end_game();
     std::string get_system_file(const Glib::ustring& filename);
 
     enum GameTheme
@@ -44,6 +65,11 @@ private:
     void on_action_about_dialog();
 
     void format_text_with_markup(Glib::ustring& text, FormatType type);
+    void check_letter_in_sentence( Glib::ustring label);
+    void replace_characters(Glib::ustring& guessSentence, Glib::ustring& displaySentence, const Glib::ustring& valid_chars, char substitutor);
+    Glib::ustring get_sentence_from_file( const std::string &file);
+    void start_game();
+    void end_game();
 
     Glib::RefPtr<Gtk::Builder> m_refBuilder;
     Gtk::Image* m_pImage;
@@ -63,4 +89,4 @@ private:
     Glib::RefPtr<Gtk::RadioAction> m_refObjects;
 };
 
-#endif //GHANGTUXMM_DERIVED_WINDOW_H
+#endif //GHANGTUXMM_APP_H

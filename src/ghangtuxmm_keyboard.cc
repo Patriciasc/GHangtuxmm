@@ -1,6 +1,6 @@
 /*
  * ########################################################################
- * # File: GHangtux - ghangtuxmm_keyboard.c                               #
+ * # File: GHangtux - ghangtuxmm_keyboard.cc                              #
  * #                                                                      #
  * # Author: Patricia Santana Cruz  <patriciasc@openismus.com>            #
  * #                                                                      #
@@ -10,18 +10,18 @@
  * #                                                                      #
  * # Description: A variation of the Hangman game.                        #
  * #                                                                      #
- * # GHangtux is free software; you can redistribute it and/or modify     #
+ * # GHangtuxmm is free software; you can redistribute it and/or modify   #
  * # it under the terms of the GNU General Public License as published by #
  * # the Free Software Foundation; either version 3 of the License,       #
  * # or (at your option) any later version.                               #
  * #                                                                      #
- * # GHangtux  is distributed in the hope that it will be useful,         #
+ * # GHangtuxmm  is distributed in the hope that it will be useful,       #
  * # but WITHOUT ANY WARRANTY; without even the implied warranty of       #
  * # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU    #
  * # General Public License for more details.                             #
  * #                                                                      #
  * # You should have received a copy of the GNU General Public License    #
- * # along with GHangtux. If not, see <http://www.gnu.org/licenses/>.     #
+ * # along with GHangtuxmm. If not, see <http://www.gnu.org/licenses/>.   #
  * ########################################################################
  */
 

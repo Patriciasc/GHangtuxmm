@@ -1,12 +1,12 @@
 /*
  * ########################################################################
- * # File: GHangtuxmm - main.cc                                           #
+ * # File: GHangtuxmm - ghangtuxmm.cc                                     #
  * #                                                                      #
  * # Author: Patricia Santana Cruz  <patriciasc@openismus.com>            #
  * #                                                                      #
  * # Copyright (C) 2010 Openismus GmbH                                    #
  * #                                                                      #
- * # Version: 1.1                                                         #  
+ * # Version: 0.1                                                         #
  * #                                                                      #
  * # Description: A variation of the Hangman game.                        #
  * #                                                                      #
