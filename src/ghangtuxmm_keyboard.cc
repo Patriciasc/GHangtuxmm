@@ -34,7 +34,7 @@ GHangtuxmmKeyboard::GHangtuxmmKeyboard()
 {
     static const int N_ROWS = 2;
     static const int N_COLS = 13;
-    float align = 0.50;
+    const float align = 0.50;
     char ascii = 'A';
 
     resize(N_ROWS, N_COLS);
