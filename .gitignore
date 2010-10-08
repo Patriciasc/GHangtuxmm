@@ -15,7 +15,9 @@ src/stamp*
 intltool-extract.in
 intltool-merge.in
 intltool-update.in
+po/.intltool-merge-cache
 po/es.gmo
 po/Makefile*
 po/POTFILES
 po/stamp-it
+ghangtuxmm.desktop
