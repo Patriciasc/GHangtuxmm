@@ -154,7 +154,7 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
     Gtk::VBox* pVBoxKeyboard;
     m_refBuilder->get_widget("vbox2", pVBoxKeyboard);
 
-    m_Keyboard.sig_on_button_clicked().connect( sigc::mem_fun(*this, &GHangtuxmmApp::check_letter_in_sentence));
+    m_Keyboard.sig_button_clicked().connect( sigc::mem_fun(*this, &GHangtuxmmApp::check_letter_in_sentence));
     m_Keyboard.show();
     pVBoxKeyboard->pack_start(m_Keyboard, Gtk::PACK_SHRINK);
     pVBoxKeyboard->reorder_child(m_Keyboard, 3);
@@ -231,7 +231,7 @@ void GHangtuxmmApp::format_text_with_markup(Glib::ustring& text,
 
 //Looks for a the player's given letter in the guess sentence.
 //If the player does not assert, it will show the next Tux image.
-void GHangtuxmmApp::check_letter_in_sentence(Glib::ustring label)
+void GHangtuxmmApp::check_letter_in_sentence(const Glib::ustring& label)
 {
     if (m_GuessSentence.find(label) != Glib::ustring::npos)
     {
@@ -465,12 +465,16 @@ void GHangtuxmmApp::on_action_about_dialog()
     aboutDialog.set_version(PACKAGE_VERSION);
     aboutDialog.set_copyright("Copyright (C) 2010 Openismus GmbH.");
     aboutDialog.set_comments(_("GHangtuxmm is a variation of the popular Hangman game."));
-    aboutDialog.set_license("Free: Look for the right text");
     aboutDialog.set_website("http://github.com//Patriciasc/GHantuxmm");
     aboutDialog.set_translator_credits("Patricia Santana Cruz");
     aboutDialog.set_authors(authors);
     aboutDialog.set_documenters(authors);
     aboutDialog.set_artists(artists);
+
+    Glib::RefPtr<Glib::IOChannel> iochannel = Glib::IOChannel::create_from_file("COPYING","r");
+    Glib::ustring license_file;
+    iochannel->read_to_end(license_file);
+    aboutDialog.set_license(license_file);
 
     //FIX: create a function for this
     std::vector<std::string> path_vec;

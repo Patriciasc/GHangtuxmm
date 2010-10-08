@@ -38,14 +38,14 @@ public:
     void set_sensitive(bool sensitive);
 
     //Signal accessor for the only keyboard's signal.
-    typedef sigc::signal<void, const Glib::ustring> T_signal_clicked;
-    T_signal_clicked sig_on_button_clicked();
+    typedef sigc::signal<void, Glib::ustring> T_signal_clicked;
+    T_signal_clicked sig_button_clicked();
 
 private:
     void on_button_clicked(Gtk::Button* button);
     void on_foreach_set_sensitive(Gtk::Widget& button, const bool& sensitive);
 
-    T_signal_clicked m_on_button_clicked;
+    T_signal_clicked m_sig_button_clicked;
 };
 
 #endif /* GHANGTUXMM_KEYBOARD_H__ */

@@ -65,7 +65,7 @@ private:
     void on_action_about_dialog();
 
     void format_text_with_markup(Glib::ustring& text, FormatType type);
-    void check_letter_in_sentence( Glib::ustring label);
+    void check_letter_in_sentence( const Glib::ustring& label);
     void replace_characters(Glib::ustring& guessSentence, Glib::ustring& displaySentence, const Glib::ustring& valid_chars, char substitutor);
     Glib::ustring get_sentence_from_file( const std::string &file);
     void start_game();

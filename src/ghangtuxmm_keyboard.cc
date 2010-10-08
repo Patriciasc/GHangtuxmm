@@ -30,11 +30,10 @@
 #include <iostream>
 #include "ghangtuxmm_keyboard.h"
 
-static const int N_ROWS = 2;
-static const int N_COLS = 13;
-
 GHangtuxmmKeyboard::GHangtuxmmKeyboard()
 {
+    static const int N_ROWS = 2;
+    static const int N_COLS = 13;
     float align = 0.50;
     char ascii = 'A';
 
@@ -65,12 +64,12 @@ void GHangtuxmmKeyboard::on_button_clicked(Gtk::Button* button)
 {
     button->set_sensitive(false);
     //Emit signal for the Keyboard.
-    m_on_button_clicked.emit(button->get_label());
+    m_sig_button_clicked.emit(button->get_label());
 }
 
-GHangtuxmmKeyboard::T_signal_clicked GHangtuxmmKeyboard::sig_on_button_clicked()
+GHangtuxmmKeyboard::T_signal_clicked GHangtuxmmKeyboard::sig_button_clicked()
 {
-    return m_on_button_clicked;
+    return m_sig_button_clicked;
 }
 
 //Followed the Gtk::Container::foreach() documentation but does not work.
