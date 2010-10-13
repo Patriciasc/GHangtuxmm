@@ -49,7 +49,7 @@ main (int argc,
     Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create(); 
     try
     {
-        refBuilder->add_from_file(GHapp->get_system_file(Glib::build_filename("ui", "ghangtuxmm.glade")));
+        refBuilder->add_from_file(GHangtuxmmApp::get_system_file(Glib::build_filename("ui", "ghangtuxmm.glade")));
     }
     catch(const Glib::FileError& ex)
     {
