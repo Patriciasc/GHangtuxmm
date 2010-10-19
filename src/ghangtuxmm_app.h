@@ -33,9 +33,6 @@
 class GHangtuxmmApp : public Gtk::Window
 {
 public:
-    GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refBuilder);
-    ~GHangtuxmmApp();
-    static std::string get_system_file(const Glib::ustring& filename);
 
     enum GameTheme
     {
@@ -56,6 +53,17 @@ public:
         FORMAT_TYPE_DISPLAY,
         FORMAT_TYPE_TITLE
     };
+
+    enum FileType
+    {
+        FILE_TYPE_PACKAGE,
+        FILE_TYPE_EXTERN
+    };
+
+    GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refBuilder);
+    ~GHangtuxmmApp();
+    static std::string get_system_file(const Glib::ustring& filename, FileType=FILE_TYPE_PACKAGE);
+
 
 private:
     //Action handlers

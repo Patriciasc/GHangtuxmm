@@ -385,7 +385,7 @@ void GHangtuxmmApp::end_game()
 }
 
 //Search system directories for the given filename.
-std::string GHangtuxmmApp::get_system_file(const Glib::ustring& filename)
+std::string GHangtuxmmApp::get_system_file(const Glib::ustring& filename, FileType file)
 {
     std::string pathname = "";
     std::string build_path = "";
@@ -395,7 +395,10 @@ std::string GHangtuxmmApp::get_system_file(const Glib::ustring& filename)
     for(system_data_dirs=g_get_system_data_dirs(); *system_data_dirs!=NULL; system_data_dirs++)
     {
             vec_system_data_dirs.push_back(*system_data_dirs);
-            vec_system_data_dirs.push_back(PACKAGE_NAME);
+            if( !file==FILE_TYPE_EXTERN)
+            {
+                vec_system_data_dirs.push_back(PACKAGE_NAME);
+            }
             vec_system_data_dirs.push_back(filename);
             build_path = Glib::build_filename(vec_system_data_dirs);
 
@@ -456,12 +459,17 @@ void GHangtuxmmApp::on_action_about_dialog()
     aboutDialog.set_documenters(authors);
     aboutDialog.set_artists(artists);
 
-    Glib::ustring license_text = "GHangtuxmm is free software; you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation; either version 3 of the License,\nor (at your option) any later version.\n\nGHangtuxmm  is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\nGeneral Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with GHangtuxmm. If not, see <http://www.gnu.org/licenses/>.";
+    static const Glib::ustring license_text = "GHangtuxmm is free software; you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation; either version 3 of the License,\nor (at your option) any later version.\n\nGHangtuxmm  is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\nGeneral Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with GHangtuxmm. If not, see <http://www.gnu.org/licenses/>.";
 
     aboutDialog.set_license(license_text);
 
-    aboutDialog.set_logo_icon_name(get_system_file(Glib::build_filename("icons/hicolor/256x256/apps",
-                                                                        "ghangtuxmm.png")));
+    std::vector<std::string> path_vec;
+    path_vec.push_back("icons");
+    path_vec.push_back("hicolor");
+    path_vec.push_back("256x256");
+    path_vec.push_back("apps");
+    path_vec.push_back("ghangtuxmm.png");
+    aboutDialog.set_logo_icon_name(get_system_file(Glib::build_filename(path_vec), FILE_TYPE_EXTERN));
 
     aboutDialog.run();
 }
