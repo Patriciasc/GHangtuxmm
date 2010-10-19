@@ -251,10 +251,8 @@ void GHangtuxmmApp::check_letter_in_sentence(const Glib::ustring& label)
     {
         if(m_NImage < TUX_IMAGES)
         {
-            std::vector<std::string> path_vec;
-            path_vec.push_back("images");
-            path_vec.push_back("Tux"+( Glib::ustring::compose("%1",m_NImage))+".png");
-            m_pImage->set(get_system_file(Glib::build_filename(path_vec)));
+            m_pImage->set(get_system_file(Glib::build_filename("images",
+                "Tux"+( Glib::ustring::compose("%1",m_NImage))+".png")));
             ++m_NImage;
         }
         else
@@ -273,10 +271,7 @@ Glib::ustring GHangtuxmmApp::get_sentence_from_file(const std::string& file)
     try
     {
         //Open file.
-        std::vector<std::string> path_vec;
-        path_vec.push_back("themes");
-        path_vec.push_back(file);
-        const std::string file_path = get_system_file(Glib::build_filename(path_vec));
+        const std::string file_path = get_system_file(Glib::build_filename("themes", file));
         Glib::RefPtr<Glib::IOChannel> iochannel = Glib::IOChannel::create_from_file(file_path,"r");
 
         //Read a random sentence from the file. 
@@ -354,10 +349,7 @@ void GHangtuxmmApp::start_game()
     m_Keyboard.set_sensitive(true);
 
     //Set inicial image.
-    std::vector<std::string> path_vec;
-    path_vec.push_back("images");
-    path_vec.push_back("Tux0.png");
-    m_pImage->set(get_system_file(Glib::build_filename(path_vec)));
+    m_pImage->set(get_system_file(Glib::build_filename("images", "Tux0.png")));
     ++m_NImage;
 }
 
@@ -373,25 +365,18 @@ void GHangtuxmmApp::end_game()
     //Set keyboard insensitive.
     m_Keyboard.set_sensitive(false);
     //Set other parameters depending on the way the game finishes.
-
-    std::vector<std::string> path_vec;
-    path_vec.push_back("images");
-
     switch(m_Winner)
     {
       case(END_CONDITION_WON):
-          path_vec.push_back("Tux8.png");
-          m_pImage->set(get_system_file(Glib::build_filename(path_vec)));
+          m_pImage->set(get_system_file(Glib::build_filename("images", "Tux8.png")));
           m_pStatusbar->push(_("Congratulations!"), m_ContextStatusbar);
           break;
       case(END_CONDITION_LOST):
-          path_vec.push_back("Tux7.png");
-          m_pImage->set(get_system_file(Glib::build_filename(path_vec)));
+          m_pImage->set(get_system_file(Glib::build_filename("images", "Tux7.png")));
           m_pStatusbar->push(_("End of game. Try again!"), m_ContextStatusbar);
           break;
       case(END_CONDITION_SOLUTION):
-          path_vec.push_back("Tux7.png");
-          m_pImage->set(get_system_file(Glib::build_filename(path_vec)));
+          m_pImage->set(get_system_file(Glib::build_filename("images", "Tux7.png")));
           m_pStatusbar->push(_("Solution"), m_ContextStatusbar);
           break;
       default:
@@ -479,9 +464,7 @@ void GHangtuxmmApp::on_action_about_dialog()
     //FIX: create a function for this
     std::vector<std::string> path_vec;
     path_vec.push_back("icons");
-    path_vec.push_back("hicolor");
-    path_vec.push_back("200x200");
-    path_vec.push_back("apps");
+    path_vec.push_back("256x256");
     path_vec.push_back("ghangtuxmm.png");
     //FIX: Logo is not showing!
     aboutDialog.set_logo_icon_name(get_system_file(Glib::build_filename(path_vec)));

@@ -49,10 +49,7 @@ main (int argc,
     Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create(); 
     try
     {
-        std::vector<std::string> path_vec;
-        path_vec.push_back("ui");
-        path_vec.push_back("ghangtuxmm.glade");
-        refBuilder->add_from_file(GHapp->get_system_file(Glib::build_filename(path_vec)));
+        refBuilder->add_from_file(GHapp->get_system_file(Glib::build_filename("ui", "ghangtuxmm.glade")));
     }
     catch(const Glib::FileError& ex)
     {
