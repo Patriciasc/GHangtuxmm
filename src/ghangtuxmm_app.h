@@ -62,7 +62,7 @@ public:
 
     GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refBuilder);
     ~GHangtuxmmApp();
-    static std::string get_system_file(const Glib::ustring& filename, FileType=FILE_TYPE_PACKAGE);
+    static std::string get_system_file(const std::string& filename, FileType=FILE_TYPE_PACKAGE);
 
 
 private:

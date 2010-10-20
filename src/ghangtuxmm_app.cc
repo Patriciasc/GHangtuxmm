@@ -385,7 +385,7 @@ void GHangtuxmmApp::end_game()
 }
 
 //Search system directories for the given filename.
-std::string GHangtuxmmApp::get_system_file(const Glib::ustring& filename, FileType file)
+std::string GHangtuxmmApp::get_system_file(const std::string& filename, FileType file)
 {
     std::string pathname = "";
     std::string build_path = "";
