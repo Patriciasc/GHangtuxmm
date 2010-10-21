@@ -52,10 +52,12 @@ main(int argc,
     catch(const Glib::FileError& ex)
     {
         std::cerr << "FileError: " << ex.what() << std::endl;
+        return EXIT_FAILURE;
     }
     catch(const Gtk::BuilderError& ex)
     {
         std::cerr << "BuilderError: " << ex.what() << std::endl;
+        return EXIT_FAILURE;
     }
 
     refBuilder->get_widget_derived("main_window", GHapp);
@@ -63,5 +65,5 @@ main(int argc,
 
     Gtk::Main::run(*GHapp);
 
-   return 0;
+   return EXIT_SUCCESS;
 }
