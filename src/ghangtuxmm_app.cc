@@ -6,8 +6,6 @@
  * #                                                                      #
  * # Copyright (C) 2010 Openismus GmbH                                    #
  * #                                                                      #
- * # Version: 0.1                                                         #
- * #                                                                      #
  * # Description: A variation of the Hangman game.                        #
  * #                                                                      #
  * # GHangtuxmm is free software; you can redistribute it and/or modify   #
