@@ -55,22 +55,22 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
     m_refBuilder->get_widget("for_sentence_label", m_pDisplayLabel);
     m_refBuilder->get_widget("for_title_label", m_pTitleLabel);
     m_refBuilder->get_widget("statusbar", m_pStatusbar);
-    
+
     //Create actions for menus and toolbars.
     Glib::RefPtr<Gtk::ActionGroup> refActionGroup = Gtk::ActionGroup::create();
 
     //Game menu.
-    refActionGroup->add( Gtk::Action::create("MenuGame", _("_Game")));
-    refActionGroup->add( Gtk::Action::create("MenuGameNew",Gtk::Stock::NEW, _("_New")),
+    refActionGroup->add(Gtk::Action::create("MenuGame", _("_Game")));
+    refActionGroup->add(Gtk::Action::create("MenuGameNew", Gtk::Stock::NEW, _("_New")),
       sigc::mem_fun(*this, &GHangtuxmmApp::on_action_game_new));
-    refActionGroup->add( Gtk::Action::create("MenuGameSolve", Gtk::Stock::APPLY, _("_Solve")),
+    refActionGroup->add(Gtk::Action::create("MenuGameSolve", Gtk::Stock::APPLY, _("_Solve")),
       sigc::mem_fun(*this, &GHangtuxmmApp::on_action_game_solve));
-    refActionGroup->add( Gtk::Action::create("MenuGameQuit", Gtk::Stock::QUIT, _("_Quit")),
+    refActionGroup->add(Gtk::Action::create("MenuGameQuit", Gtk::Stock::QUIT, _("_Quit")),
       sigc::mem_fun(*this, &GHangtuxmmApp::on_action_game_quit));
 
     //Settings menu.
-    refActionGroup->add( Gtk::Action::create("MenuSettings", _("_Settings")));
-    refActionGroup->add( Gtk::Action::create("MenuSettingsThemes", _("_Themes")));
+    refActionGroup->add(Gtk::Action::create("MenuSettings", _("_Settings")));
+    refActionGroup->add(Gtk::Action::create("MenuSettingsThemes", _("_Themes")));
 
     Gtk::RadioAction::Group group_theme;
     m_refFilms = Gtk::RadioAction::create(group_theme, "MenuThemesFilms", _("_Films"));
@@ -84,8 +84,8 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
       sigc::mem_fun(*this, &GHangtuxmmApp::on_action_game_new));
 
     //Help menu.
-    refActionGroup->add( Gtk::Action::create("MenuHelp", _("_Help")));
-    refActionGroup->add( Gtk::Action::create("MenuHelpAbout", _("_About")),
+    refActionGroup->add(Gtk::Action::create("MenuHelp", _("_Help")));
+    refActionGroup->add(Gtk::Action::create("MenuHelpAbout", _("_About")),
       sigc::mem_fun(*this, &GHangtuxmmApp::on_action_about_dialog));
 
     //Create UIManager and add action group.
@@ -154,11 +154,11 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
     Gtk::VBox* pVBoxKeyboard;
     m_refBuilder->get_widget("vbox2", pVBoxKeyboard);
 
-    m_Keyboard.sig_button_clicked().connect( sigc::mem_fun(*this, &GHangtuxmmApp::check_letter_in_sentence));
+    m_Keyboard.sig_button_clicked().connect(sigc::mem_fun(*this, &GHangtuxmmApp::check_letter_in_sentence));
     m_Keyboard.show();
     pVBoxKeyboard->pack_start(m_Keyboard, Gtk::PACK_SHRINK);
     pVBoxKeyboard->reorder_child(m_Keyboard, 3);
-    
+
     //start_game()
     start_game();
 }
@@ -194,9 +194,9 @@ void GHangtuxmmApp::replace_characters(Glib::ustring& guessSentence,
             displaySentence.push_back(*i);
         }
         // When guess char is not valid, we substitute it
-        // with the substitutor if it is not a space or 
+        // with the substitutor if it is not a space or
         // end of line.
-        else 
+        else
         {
             if(*i==' ')
             {
@@ -205,7 +205,7 @@ void GHangtuxmmApp::replace_characters(Glib::ustring& guessSentence,
             else
             {
                 if(i != guessSentence.end())
-                { 
+                {
                     displaySentence.push_back(substitutor);
                 }
             }
@@ -219,10 +219,10 @@ void GHangtuxmmApp::format_text_with_markup(Glib::ustring& text,
     switch(type)
     {
       case(FORMAT_TYPE_DISPLAY):  //Displayed sentence label
-          text = text.compose("<span size=\"large\" font_weight=\"ultrabold\">%1</span>",text);
+          text = text.compose("<span size=\"large\" font_weight=\"ultrabold\">%1</span>", text);
           break;
       case(FORMAT_TYPE_TITLE):    //Title label.
-          text = text.compose("<span size=\"small\">%1</span>",text);
+          text = text.compose("<span size=\"small\">%1</span>", text);
           break;
       default:
           g_critical("Non existent format type.");
@@ -238,7 +238,7 @@ void GHangtuxmmApp::check_letter_in_sentence(const Glib::ustring& label)
         m_AssertedChars.push_back(label[0]);
         replace_characters(m_GuessSentence, m_DisplaySentence, m_AssertedChars, '_');
         Glib::ustring formatDisplay = m_DisplaySentence;
-        format_text_with_markup(formatDisplay,FORMAT_TYPE_DISPLAY);
+        format_text_with_markup(formatDisplay, FORMAT_TYPE_DISPLAY);
         m_pDisplayLabel->set_markup(formatDisplay);
 
         if (m_DisplaySentence.compare(m_GuessSentence) == 0)
@@ -252,7 +252,7 @@ void GHangtuxmmApp::check_letter_in_sentence(const Glib::ustring& label)
         if(m_NImage < TUX_IMAGES)
         {
             m_pImage->set(get_system_file(Glib::build_filename("images",
-                "Tux"+( Glib::ustring::compose("%1",m_NImage))+".png")));
+                "Tux" + (Glib::ustring::compose("%1", m_NImage)) + ".png")));
             ++m_NImage;
         }
         else
@@ -272,11 +272,11 @@ Glib::ustring GHangtuxmmApp::get_sentence_from_file(const std::string& file)
     {
         //Open file.
         const std::string file_path = get_system_file(Glib::build_filename("themes", file));
-        Glib::RefPtr<Glib::IOChannel> iochannel = Glib::IOChannel::create_from_file(file_path,"r");
+        Glib::RefPtr<Glib::IOChannel> iochannel = Glib::IOChannel::create_from_file(file_path, "r");
 
-        //Read a random sentence from the file. 
+        //Read a random sentence from the file.
         Glib::Rand num;
-        int n_rand = num.get_int_range(MIN_RAND,MAX_RAND);
+        int n_rand = num.get_int_range(MIN_RAND, MAX_RAND);
         int i=0;
 
         while (i != n_rand)
@@ -342,7 +342,7 @@ void GHangtuxmmApp::start_game()
 
     //Display title label.
     Glib::ustring title = "";
-    format_text_with_markup(title=(_("Guess the ")+theme_label),FORMAT_TYPE_TITLE);
+    format_text_with_markup(title=(_("Guess the ") + theme_label), FORMAT_TYPE_TITLE);
     m_pTitleLabel->set_markup(title);
 
     //Set Keyboard to sensitive.
@@ -358,7 +358,7 @@ void GHangtuxmmApp::end_game()
 {
     //Set display label.
     Glib::ustring formatDisplay = m_GuessSentence;
-    format_text_with_markup(formatDisplay,FORMAT_TYPE_DISPLAY);
+    format_text_with_markup(formatDisplay, FORMAT_TYPE_DISPLAY);
     m_pDisplayLabel->set_markup(formatDisplay);
     //Set title label.
     m_pTitleLabel->set_text("");
@@ -395,7 +395,7 @@ std::string GHangtuxmmApp::get_system_file(const std::string& filename, FileType
     for(system_data_dirs=g_get_system_data_dirs(); *system_data_dirs!=NULL; system_data_dirs++)
     {
             vec_system_data_dirs.push_back(*system_data_dirs);
-            if( !file==FILE_TYPE_EXTERN)
+            if(!file==FILE_TYPE_EXTERN)
             {
                 vec_system_data_dirs.push_back(PACKAGE_NAME);
             }

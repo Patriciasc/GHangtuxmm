@@ -34,6 +34,9 @@ class GHangtuxmmApp : public Gtk::Window
 {
 public:
 
+    GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refBuilder);
+    ~GHangtuxmmApp();
+
     enum GameTheme
     {
         THEME_FILMS,
@@ -60,10 +63,8 @@ public:
         FILE_TYPE_EXTERN
     };
 
-    GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refBuilder);
-    ~GHangtuxmmApp();
-    static std::string get_system_file(const std::string& filename, FileType=FILE_TYPE_PACKAGE);
 
+    static std::string get_system_file(const std::string& filename, FileType=FILE_TYPE_PACKAGE);
 
 private:
     //Action handlers
@@ -74,11 +75,11 @@ private:
 
     void start_game();
     void end_game();
-    void check_letter_in_sentence( const Glib::ustring& label);
+    void check_letter_in_sentence(const Glib::ustring& label);
 
     static void format_text_with_markup(Glib::ustring& text, FormatType type);
     static void replace_characters(Glib::ustring& guessSentence, Glib::ustring& displaySentence, const Glib::ustring& valid_chars, char substitutor);
-    static Glib::ustring get_sentence_from_file( const std::string &file);
+    static Glib::ustring get_sentence_from_file(const std::string &file);
 
     Glib::RefPtr<Gtk::Builder> m_refBuilder;
     Gtk::Image* m_pImage;
