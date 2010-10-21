@@ -1,5 +1,5 @@
-                                    GHangtux
-                                   version 1.0
+                                    GHangtuxmm
+                                   version 0.1
 
                           A version of the Hangman game
                         Copyright (C) 2010 Openismus GmbH
@@ -15,11 +15,11 @@
    |             Table of Contents             |
    |-------------------------------------------|
    |  * About                                  |
-   |    + What Is 'GHangtux?'                  |
+   |    + What Is 'GHangtuxmm?'                  |
    |    + License                              |
    |                                           |
-   |  * Using GHangtux                         |
-   |    + How To Play 'GHangtux?'              | 
+   |  * Using GHangtuxmm                         |
+   |    + How To Play 'GHangtuxmm?'              | 
    |    + Installation                         |
    +-------------------------------------------+
 
@@ -27,9 +27,9 @@
 
                                      About
 
-What Is 'GHangtux?'
+What Is 'GHangtuxmm?'
 
-       GHangtux is a free program variation of the popular Hangman game.
+       GHangtuxmm is a free program variation of the popular Hangman game.
        It has been designed for people of all ages and has a simple, 
        easy-to-use interface.
 
@@ -43,7 +43,7 @@ What Is 'GHangtux?'
 
 License:
 
-       GHangtux is an Open Source project, Free Software released under the
+       GHangtuxmm is an Open Source project, Free Software released under the
        GNU General Public License (GPL). It is free, and the 'source code'
        behind the program is available. (This allows others to add features,
        fix bugs, and use parts of the program in their own GPL'd software.)
@@ -51,9 +51,9 @@ License:
        See COPYING.txt for the full text of the GPL license.
  
 
-                                Using GHangtux
+                                Using GHangtuxmm
 
-How To Play 'GHangtux?'
+How To Play 'GHangtuxmm?'
 
        GHangman is a game for one player. A sentence/word will be displayed 
        and the player can try to guess it by suggesting letters.
@@ -79,12 +79,12 @@ Installation:
       desirable prefix for installation: /home/me/.local
       
       Installation process BEFORE:
-      [me@me GHangTux]$ ./autogen.sh --prefix=/home/me/.local
-      [me@me GHangTux]$ make
-      [me@me GHangTux]$ make install 
+      [me@me GHangtuxmm]$ ./autogen.sh --prefix=/home/me/.local
+      [me@me GHangtuxmm]$ make
+      [me@me GHangtuxmm]$ make install 
 
       Installation process NOW:
-      [me@me GHangTux]$ ./autogen.sh --prefix=/home/me/.local
-      [me@me GHangTux]$ make
-      [me@me GHangTux]$ make install 
-      [me@me GHangTux]$ XDG_DATA_DIRS=/home/me/.local/share /home/me/.local/bin/ghangtux
+      [me@me GHangtuxmm]$ ./autogen.sh --prefix=/home/me/.local
+      [me@me GHangtuxmm]$ make
+      [me@me GHangtuxmm]$ make install 
+      [me@me GHangtuxmm]$ XDG_DATA_DIRS=/home/me/.local/share /home/me/.local/bin/ghangtuxmm
