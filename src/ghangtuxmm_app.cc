@@ -395,7 +395,7 @@ std::string GHangtuxmmApp::get_system_file(const std::string& filename, FileType
     for(system_data_dirs=g_get_system_data_dirs(); *system_data_dirs!=NULL; system_data_dirs++)
     {
             vec_system_data_dirs.push_back(*system_data_dirs);
-            if(!file==FILE_TYPE_EXTERN)
+            if(file !=FILE_TYPE_EXTERN)
             {
                 vec_system_data_dirs.push_back(PACKAGE_NAME);
             }
