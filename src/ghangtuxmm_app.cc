@@ -175,7 +175,9 @@ void GHangtuxmmApp::replace_characters(Glib::ustring& guessSentence,
                                                 const Glib::ustring& validChars,
                                                 char substitutor)
 {
-    displaySentence = "";
+    //Initialize the output parameter, in case the caller doesn't.
+    displaySentence.clear();
+
     for(Glib::ustring::iterator i=guessSentence.begin(); i != guessSentence.end(); ++i)
     {
         bool is_valid_char = false;
@@ -328,20 +330,20 @@ void GHangtuxmmApp::start_game()
     m_GuessSentence = get_sentence_from_file(theme_file);
 
     //Initialize m_DisplaySentence and display it.
-    m_DisplaySentence = "";
+    m_DisplaySentence.clear();
     replace_characters(m_GuessSentence, m_DisplaySentence, "", '_');
     Glib::ustring formatDisplay = m_DisplaySentence;
     format_text_with_markup(formatDisplay, FORMAT_TYPE_DISPLAY);
     m_pDisplayLabel->set_markup(formatDisplay);
 
     //Initialize asserted characters.
-    m_AssertedChars = "";
+    m_AssertedChars.clear();
 
     //Initialize the image's number.
     m_NImage = 0;
 
     //Display title label.
-    Glib::ustring title = "";
+    Glib::ustring title;
     format_text_with_markup(title=(_("Guess the ") + theme_label), FORMAT_TYPE_TITLE);
     m_pTitleLabel->set_markup(title);
 
@@ -387,8 +389,8 @@ void GHangtuxmmApp::end_game()
 //Search system directories for the given filename.
 std::string GHangtuxmmApp::get_system_file(const std::string& filename, FileType file)
 {
-    std::string pathname = "";
-    std::string build_path = "";
+    std::string pathname;
+    std::string build_path;
     const gchar* const* system_data_dirs;
     std::vector<std::string> vec_system_data_dirs;
 
