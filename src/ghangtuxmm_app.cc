@@ -392,6 +392,7 @@ std::string GHangtuxmmApp::get_system_file(const std::string& filename, FileType
     const gchar* const* system_data_dirs;
     std::vector<std::string> vec_system_data_dirs;
 
+    //TODO: Use Glib::get_system_data_dirs() instead, when we can depend on glibmm 2.18.
     for(system_data_dirs = g_get_system_data_dirs(); *system_data_dirs != 0; system_data_dirs++)
     {
         vec_system_data_dirs.push_back(*system_data_dirs);
