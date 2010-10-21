@@ -72,14 +72,16 @@ GHangtuxmmKeyboard::T_signal_clicked GHangtuxmmKeyboard::sig_button_clicked()
     return m_sig_button_clicked;
 }
 
-//Followed the Gtk::Container::foreach() documentation but does not work.
-void GHangtuxmmKeyboard::set_sensitive(bool sensitive)
+void GHangtuxmmKeyboard::set_all_buttons_sensitive(bool sensitive)
 {
-    Gtk::Container::ForeachSlot my_slot = sigc::bind(sigc::mem_fun(*this, &GHangtuxmmKeyboard::on_foreach_set_sensitive), sensitive);
-    foreach(my_slot);
+    set_sensitive(sensitive);
+    foreach(
+      sigc::bind(
+        sigc::mem_fun(*this, &GHangtuxmmKeyboard::on_foreach_button_set_sensitive),
+        sensitive));
 }
 
-void GHangtuxmmKeyboard::on_foreach_set_sensitive(Gtk::Widget& button, bool sensitive)
+void GHangtuxmmKeyboard::on_foreach_button_set_sensitive(Gtk::Widget& button, bool sensitive)
 {
     button.set_sensitive(sensitive);
 }

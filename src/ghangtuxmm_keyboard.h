@@ -35,7 +35,14 @@ class GHangtuxmmKeyboard : public Gtk::Table
 public:
     GHangtuxmmKeyboard();
     ~GHangtuxmmKeyboard();
-    void set_sensitive(bool sensitive);
+
+    /** Make all buttons sensitive or insensitive.
+     * Simply calling the base set_sensitive() is
+     * not enough because we also make individual buttons
+     * insensitive, and they would remain insensitive when making
+     * the parent sensitive.
+     */
+    void set_all_buttons_sensitive(bool sensitive);
 
     //Signal accessor for the only keyboard's signal.
     typedef sigc::signal<void, Glib::ustring> T_signal_clicked;
@@ -43,7 +50,7 @@ public:
 
 private:
     void on_button_clicked(Gtk::Button* button);
-    void on_foreach_set_sensitive(Gtk::Widget& button, bool sensitive);
+    void on_foreach_button_set_sensitive(Gtk::Widget& button, bool sensitive);
 
     T_signal_clicked m_sig_button_clicked;
 };
