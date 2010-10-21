@@ -96,7 +96,7 @@ GHangtuxmmApp::GHangtuxmmApp(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Bu
     add_accel_group(refUIManager->get_accel_group());
 
     //UIManager layout.
-    Glib::ustring ui_menu_toolbar=
+    Glib::ustring ui_menu_toolbar =
         "<ui>"
         "   <menubar name='Menubar'>"
         "       <menu action='MenuGame'>"
@@ -176,11 +176,11 @@ void GHangtuxmmApp::replace_characters(Glib::ustring& guessSentence,
                                                 char substitutor)
 {
     displaySentence = "";
-    for(Glib::ustring::iterator i=guessSentence.begin(); i!= guessSentence.end(); ++i)
+    for(Glib::ustring::iterator i=guessSentence.begin(); i != guessSentence.end(); ++i)
     {
         bool is_valid_char = false;
         //Look if the guess char is a valid char.
-        for(Glib::ustring::const_iterator j=validChars.begin(); j!=validChars.end(); ++j)
+        for(Glib::ustring::const_iterator j = validChars.begin(); j != validChars.end(); ++j)
         {
             if(*i == *j)
             {
@@ -198,7 +198,7 @@ void GHangtuxmmApp::replace_characters(Glib::ustring& guessSentence,
         // end of line.
         else
         {
-            if(*i==' ')
+            if(*i == ' ')
             {
                 displaySentence.push_back(' ');
             }
@@ -277,9 +277,9 @@ Glib::ustring GHangtuxmmApp::get_sentence_from_file(const std::string& file)
         //Read a random sentence from the file.
         Glib::Rand num;
         int n_rand = num.get_int_range(MIN_RAND, MAX_RAND);
-        int i=0;
+        int i = 0;
 
-        while (i != n_rand)
+        while(i != n_rand)
         {
             iochannel->read_line(sentence);
             ++i;

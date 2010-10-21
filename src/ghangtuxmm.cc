@@ -33,8 +33,8 @@
 #include <iostream>
 
 int
-main (int argc,
-      char *argv[])
+main(int argc,
+     char *argv[])
 {
     Gtk::Main kit(argc, argv);
 
@@ -43,10 +43,10 @@ main (int argc,
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
     textdomain(GETTEXT_PACKAGE);
 
-    GHangtuxmmApp *GHapp = 0;
+    GHangtuxmmApp* GHapp = 0;
 
     //Load the Glade file and instiate its widgets.
-    Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create(); 
+    Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create();
     try
     {
         refBuilder->add_from_file(GHangtuxmmApp::get_system_file(Glib::build_filename("ui", "ghangtuxmm.glade")));
