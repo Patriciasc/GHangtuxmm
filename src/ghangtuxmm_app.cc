@@ -392,22 +392,24 @@ std::string GHangtuxmmApp::get_system_file(const std::string& filename, FileType
     const gchar* const* system_data_dirs;
     std::vector<std::string> vec_system_data_dirs;
 
-    for(system_data_dirs=g_get_system_data_dirs(); *system_data_dirs!=NULL; system_data_dirs++)
+    for(system_data_dirs = g_get_system_data_dirs(); *system_data_dirs != NULL; system_data_dirs++)
     {
-            vec_system_data_dirs.push_back(*system_data_dirs);
-            if(file !=FILE_TYPE_EXTERN)
-            {
-                vec_system_data_dirs.push_back(PACKAGE_NAME);
-            }
-            vec_system_data_dirs.push_back(filename);
-            build_path = Glib::build_filename(vec_system_data_dirs);
+        vec_system_data_dirs.push_back(*system_data_dirs);
+        if(file != FILE_TYPE_EXTERN)
+        {
+            vec_system_data_dirs.push_back(PACKAGE_NAME);
+        }
 
-            if(Glib::file_test(build_path,Glib::FILE_TEST_EXISTS))
-            {
-                pathname = build_path;
-                break;
-            }
+        vec_system_data_dirs.push_back(filename);
+        build_path = Glib::build_filename(vec_system_data_dirs);
+
+        if(Glib::file_test(build_path, Glib::FILE_TEST_EXISTS))
+        {
+            pathname = build_path;
+            break;
+        }
     }
+
     return pathname;
 }
 
