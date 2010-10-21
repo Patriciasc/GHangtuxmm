@@ -32,11 +32,10 @@ GHangtuxmmKeyboard::GHangtuxmmKeyboard()
 {
     static const int N_ROWS = 2;
     static const int N_COLS = 13;
-    const float align = 0.50;
     char ascii = 'A';
 
     resize(N_ROWS, N_COLS);
-    set_homogeneous(true);
+    set_homogeneous();
 
     for(int i=0; i<N_ROWS; ++i)
     {
@@ -45,7 +44,7 @@ GHangtuxmmKeyboard::GHangtuxmmKeyboard()
             Gtk::Button *pButton = manage(new Gtk::Button(Glib::ustring(sizeof(ascii), ascii)));
             ascii++;
             pButton->set_use_underline();
-            pButton->set_alignment(align, align);
+            pButton->set_alignment(0.5, 0.5);
             attach(*pButton, j, j+1, i, i+1);
             pButton->signal_clicked().connect(sigc::bind<Gtk::Button*>(sigc::mem_fun(*this,
                                                &GHangtuxmmKeyboard::on_button_clicked), pButton));
@@ -61,6 +60,7 @@ GHangtuxmmKeyboard::~GHangtuxmmKeyboard()
 void GHangtuxmmKeyboard::on_button_clicked(Gtk::Button* button)
 {
     button->set_sensitive(false);
+
     //Emit signal for the Keyboard.
     m_sig_button_clicked.emit(button->get_label());
 }

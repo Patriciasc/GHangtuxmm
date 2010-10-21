@@ -346,7 +346,7 @@ void GHangtuxmmApp::start_game()
     m_pTitleLabel->set_markup(title);
 
     //Set Keyboard to sensitive.
-    m_Keyboard.set_sensitive(true);
+    m_Keyboard.set_sensitive();
 
     //Set inicial image.
     m_pImage->set(get_system_file(Glib::build_filename("images", "Tux0.png")));
